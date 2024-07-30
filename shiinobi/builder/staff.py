@@ -1,7 +1,6 @@
 import re
 from selectolax.parser import HTMLParser
 from typing import Set
-from shinobi.decorators.return_error_decorator import return_on_error
 from shinobi.utilities.regex import RegexHelper
 from shinobi.utilities.session import session
 
