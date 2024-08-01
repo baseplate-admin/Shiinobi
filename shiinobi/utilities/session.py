@@ -44,9 +44,9 @@ adapter = HTTPAdapter(max_retries=retry_strategy)
 
 
 session = CachedLimiterSession(
-    bucket_class=SQLiteCache,
+    bucket_class=SQLiteBucket,
     cache_name="http_cache",
-    backend=SQLiteBucket(identity="ratelimiter"),
+    backend=SQLiteCache(),
     # https://docs.api.jikan.moe/#section/Information/Rate-Limiting
     per_minute=100,
     # per_second=1,
