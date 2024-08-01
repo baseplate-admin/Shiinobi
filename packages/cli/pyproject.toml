@@ -3,9 +3,10 @@ name = "cli"
 version = "0.0.0"
 description = ""
 authors = ["baseplate-admin <61817579+baseplate-admin@users.noreply.github.com>"]
-
+package-mode = false 
 
 [tool.poetry.dependencies]
 python = "^3.9"
 typer = "^0.12.3"
+shiinobi = {path="../shiinobi", develop=true}
 

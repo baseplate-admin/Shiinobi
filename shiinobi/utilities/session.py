@@ -1,17 +1,15 @@
-import os
 from typing import Any
 
-from redis import ConnectionPool
 from requests import Session
 from requests.adapters import HTTPAdapter
 from requests.structures import CaseInsensitiveDict
 from requests.utils import DEFAULT_ACCEPT_ENCODING
-from requests_cache import RedisCache
-from requests_ratelimiter import LimiterMixin, RedisBucket
+from requests_cache import SQLiteCache, CacheMixin
+from requests_ratelimiter import LimiterMixin, SQLiteBucket
 from urllib3.util import Retry
 
 
-class CachedLimiterSession(LimiterMixin, Session):
+class CachedLimiterSession(CacheMixin, LimiterMixin, Session):
     """
     Session class with caching and rate-limiting behavior.
         Accepts arguments for both LimiterSession and CachedSession.
@@ -35,7 +33,6 @@ class CachedLimiterSession(LimiterMixin, Session):
         )
 
 
-CACHE_NAME = "seeder"
 RETRY_STATUSES = [403]
 
 retry_strategy = Retry(
@@ -44,17 +41,12 @@ retry_strategy = Retry(
     status_forcelist=RETRY_STATUSES,
 )
 adapter = HTTPAdapter(max_retries=retry_strategy)
-redis_pool = ConnectionPool.from_url(os.environ.get("REDIS_URL", "redis://localhost:6379"))
+
 
 session = CachedLimiterSession(
-    bucket_class=RedisBucket,
-    backend=RedisCache(),
-    # Undocumented ( pyrate-limiter )
-    bucket_kwargs={
-        "redis_pool": redis_pool,
-        "bucket_name": CACHE_NAME,
-        "expire_time": 30,
-    },
+    bucket_class=SQLiteCache,
+    cache_name="http_cache",
+    backend=SQLiteBucket(identity="ratelimiter"),
     # https://docs.api.jikan.moe/#section/Information/Rate-Limiting
     per_minute=100,
     # per_second=1,

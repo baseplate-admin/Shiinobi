@@ -4,13 +4,10 @@ version = "0.0.0"
 description = ""
 authors = ["baseplate-admin <61817579+baseplate-admin@users.noreply.github.com>"]
 readme = "README.md"
-
+package-mode = false 
 
 [tool.poetry.dependencies]
 python = "^3.9"
-shiinobi = {path="packages/shiinobi", develop=true}
-cli = {path="packages/cli",develop=true}
-typer = "^0.12.3"
 
 [build-system]
 requires = ["poetry-core"]

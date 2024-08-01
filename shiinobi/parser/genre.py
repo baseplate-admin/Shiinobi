@@ -1,8 +1,8 @@
 from typing import TypedDict
 
 
-from shinobi.decorators.return_error_decorator import return_on_error
-from shinobi.mixins.parser.base import BaseParser
+from shiinobi.decorators.return_error_decorator import return_on_error
+from shiinobi.mixins.parser.base import BaseParser
 
 
 class GenreDictionary(TypedDict):
@@ -34,7 +34,9 @@ class AnimeGenreParser(BaseParser):
         html = self.parser.css_first("span.di-ib.mt4")
         # Remove span nodes
         html.strip_tags(["span.fw-n"])
-        actual_text = self.regex_helper.remove_anime_from_the_end_of_a_string(html.text())
+        actual_text = self.regex_helper.remove_anime_from_the_end_of_a_string(
+            html.text()
+        )
         return self.string_helper.cleanse(actual_text)
 
     @property

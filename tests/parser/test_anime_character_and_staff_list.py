@@ -1,7 +1,7 @@
-from shinobi.parser.anime_character_and_staff_list import (
+from shiinobi.parser.anime_character_and_staff_list import (
     AnimeCharacterAndStaffListParser,
 )
-from shinobi.utilities.session import session
+from shiinobi.utilities.session import session
 
 res = session.get("https://myanimelist.net/anime/1/")
 

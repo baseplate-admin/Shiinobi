@@ -1,5 +1,5 @@
-from shinobi.parser.genre import AnimeGenreParser
-from shinobi.utilities.session import session
+from shiinobi.parser.genre import AnimeGenreParser
+from shiinobi.utilities.session import session
 
 res = session.get("https://myanimelist.net/anime/genre/1")
 

@@ -1,7 +1,7 @@
 from selectolax.parser import HTMLParser
 
-from shinobi.utilities.regex import RegexHelper
-from shinobi.utilities.session import session
+from shiinobi.utilities.regex import RegexHelper
+from shiinobi.utilities.session import session
 
 
 class AnimeGenreBuilder:

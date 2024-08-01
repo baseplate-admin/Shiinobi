@@ -1,4 +1,4 @@
-from shinobi.builder.genre import AnimeGenreBuilder
+from shiinobi.builder.genre import AnimeGenreBuilder
 
 
 def test_genre_sitemap_parser() -> None:
