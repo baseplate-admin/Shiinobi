@@ -5,8 +5,8 @@ from typing import TypedDict
 from dateutil import parser
 from selectolax.parser import Node
 
-from shinobi.decorators.return_error_decorator import return_on_error
-from shinobi.mixins.parser.base import BaseParser
+from shiinobi.decorators.return_error_decorator import return_on_error
+from shiinobi.mixins.parser.base import BaseParser
 
 
 class AnimeDictionary(TypedDict):

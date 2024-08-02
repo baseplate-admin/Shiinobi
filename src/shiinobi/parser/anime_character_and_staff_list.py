@@ -1,6 +1,6 @@
-from shinobi.decorators.return_error_decorator import return_on_error
+from shiinobi.decorators.return_error_decorator import return_on_error
 
-from shinobi.mixins.parser.base import BaseParser
+from shiinobi.mixins.parser.base import BaseParser
 
 
 class AnimeCharacterAndStaffListDictionary:

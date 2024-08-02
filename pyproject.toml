@@ -1,17 +1,35 @@
 [tool.poetry]
-name = "shiinobi-project"
+name = "shiinobi"
 version = "0.0.0"
 description = ""
 authors = ["baseplate-admin <61817579+baseplate-admin@users.noreply.github.com>"]
 readme = "README.md"
-
+packages = [
+    { include = "shiinobi",from="./src" },
+]
+exclude = [
+    "src/shiinobi/cli.py"
+]
+license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^3.9"
-shiinobi = {path="packages/shiinobi", develop=true}
-cli = {path="packages/cli",develop=true}
+python = ">=3.9,<3.13"
+selectolax = "^0.3.21"
+requests-cache = "^1.2.1"
+requests-ratelimiter = "^0.7.0"
+pyinstaller = "^6.9.0"
+
+
+[tool.poetry.group.cli.dependencies]
 typer = "^0.12.3"
+
+
+[tool.poetry.group.dev.dependencies]
+poethepoet = "^0.27.0"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poe.tasks]
+"dev-cli" = "python ./cli/__main__.py"

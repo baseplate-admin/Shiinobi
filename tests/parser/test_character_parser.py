@@ -1,5 +1,5 @@
-from shinobi.parser.character import CharacterParser
-from shinobi.utilities.session import session
+from shiinobi.parser.character import CharacterParser
+from shiinobi.utilities.session import session
 
 res = session.get("https://myanimelist.net/character/1")
 

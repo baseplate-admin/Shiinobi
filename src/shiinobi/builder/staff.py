@@ -1,8 +1,8 @@
 import re
 from selectolax.parser import HTMLParser
 from typing import Set
-from shinobi.utilities.regex import RegexHelper
-from shinobi.utilities.session import session
+from shiinobi.utilities.regex import RegexHelper
+from shiinobi.utilities.session import session
 
 import xml.etree.ElementTree as ET
 

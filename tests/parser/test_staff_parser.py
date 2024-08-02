@@ -2,8 +2,8 @@ import datetime
 
 import requests
 
-from shinobi.parser.staff import StaffParser
-from shinobi.utilities.session import session
+from shiinobi.parser.staff import StaffParser
+from shiinobi.utilities.session import session
 
 
 def get_staff_res_given_mal_id(mal_id: int) -> requests.Response:
