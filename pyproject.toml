@@ -1,11 +1,14 @@
 [tool.poetry]
-name = "shiinobi-project"
+name = "shiinobi"
 version = "0.0.0"
 description = ""
 authors = ["baseplate-admin <61817579+baseplate-admin@users.noreply.github.com>"]
 readme = "README.md"
 packages = [
     { include = "shiinobi",from="./src" },
+]
+exclude = [
+    "src/shiinobi/cli.py"
 ]
 license = "MIT"
 
