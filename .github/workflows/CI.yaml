@@ -1,0 +1,84 @@
+name: CI
+
+on: [push]
+
+permissions:
+    contents: write
+    pull-requests: write
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        name: Python ${{ matrix.python-version }} sample
+        strategy:
+            matrix:
+                python-version:
+                    [
+                        '3.9',
+                        '3.10',
+                        '3.11',
+                        '3.12',
+                        '3.13.0-beta.2',
+                        'pypy-3.9',
+                        'pypy-3.10',
+                    ]
+        continue-on-error: true
+
+        steps:
+            - uses: actions/checkout@v4
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: ${{ matrix.python-version }}
+            - uses: actions/checkout@v4
+            - name: Install Poetry
+              uses: snok/install-poetry@v1
+              with:
+                  virtualenvs-create: true
+                  virtualenvs-in-project: true
+            - name: Install python dependencies
+              run: |
+                  poetry install
+
+            - name: Run pyinstaller
+              run: |
+                  poetry run poe build-cli
+
+            # - name: Upload pytest test results
+            #   uses: actions/upload-artifact@v2
+            #   with:
+            #       name: pytest-results-${{ matrix.python-version }}
+            #       path: junit/test-results-${{ matrix.python-version }}.xml
+            #   if: ${{ always() }}
+
+    merge:
+        runs-on: ubuntu-latest
+        needs: [test]
+        if: github.actor == 'dependabot[bot]' # Detect that the PR author is dependabot
+        steps:
+            - uses: actions/checkout@v4
+            - name: Enable auto-merge for Dependabot PRs
+              run: gh pr merge --auto --merge "$PR_URL" # Use Github CLI to merge automatically the PR
+              env:
+                  PR_URL: ${{github.event.pull_request.html_url}}
+                  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+    release:
+        runs-on: ubuntu-latest
+        if: "startsWith(github.ref, 'refs/tags/')"
+        needs: [test]
+        steps:
+            - uses: actions/checkout@v4
+            - name: Install Poetry
+              uses: snok/install-poetry@v1
+              with:
+                  virtualenvs-create: true
+                  virtualenvs-in-project: true
+            - name: Install python dependencies
+              run: |
+                  poetry install --sync --no-interaction --no-root --with test
+                  poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
+
+            - name: Publish
+              run: |
+                  poetry publish --build
