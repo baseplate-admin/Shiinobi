@@ -33,7 +33,7 @@ class CachedLimiterSession(CacheMixin, LimiterMixin, Session):
         )
 
 
-RETRY_STATUSES = [403]
+RETRY_STATUSES = [403, 429]
 
 retry_strategy = Retry(
     total=15,

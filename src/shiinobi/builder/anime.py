@@ -38,12 +38,6 @@ class AnimeBuilder:
 
         return True
 
-    @staticmethod
-    def add_myanimelist_if_not_already_there(url: str) -> str:
-        if "myanimelist.net" not in url:
-            return "https://myanimelist.net" + url
-        else:
-            return url
 
     def get_all_pages_in_span_tag(self, html: str) -> list[str]:
         parser = self.get_parser(html)
