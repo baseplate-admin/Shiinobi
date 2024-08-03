@@ -15,6 +15,7 @@ from shiinobi.builder.anime_genres import AnimeGenreBuilder
 from shiinobi.builder.anime_explicit_genres import AnimeExplicitGenreBuilder
 from shiinobi.builder.anime_demographics import AnimeDemographicsBuilder
 from shiinobi.builder.anime import AnimeBuilder
+from shiinobi.builder.character import CharacterBuilder
 
 app = typer.Typer()
 
@@ -94,6 +95,16 @@ def get_anime_urls(
     sort: Annotated[Optional[bool], typer.Option()] = False,
 ):
     builder = AnimeBuilder()
+    dictionary = builder.build_dictionary(excluded_ids=excluded_ids, sort=sort)
+    print_json(dictionary)
+
+
+@app.command()
+def get_character_urls(
+    excluded_ids: Annotated[Optional[list[int]], typer.Option()] = [],
+    sort: Annotated[Optional[bool], typer.Option()] = False,
+):
+    builder = CharacterBuilder()
     dictionary = builder.build_dictionary(excluded_ids=excluded_ids, sort=sort)
     print_json(dictionary)
 
