@@ -1,9 +1,6 @@
-import pytest
-
 from shiinobi.builder.character import CharacterBuilder
 
 
-@pytest.mark.long
 def test_character_dictionary_builder() -> None:
     builder = CharacterBuilder()
     dictionary = builder.build_dictionary(excluded_ids=[54915])
