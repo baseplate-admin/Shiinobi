@@ -25,11 +25,11 @@ def custom_serializer(obj):
 
 
 def print_json(_dict: dict[any, any]):
-    print(json.dumps(_dict, default=custom_serializer))
+    typer.echo(json.dumps(_dict, default=custom_serializer))
 
 
-def get_url_given_key_and_id(key: Literal["people"], mal_id: int) -> session:
-    return session.get(f"https://myanimelist.net/people/{mal_id}")
+def get_url_given_key_and_id(key: Literal["people", ""], mal_id: int) -> session:
+    return session.get(f"https://myanimelist.net/{key}/{mal_id}")
 
 
 @app.command()
