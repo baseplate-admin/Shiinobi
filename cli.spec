@@ -2,12 +2,12 @@
 
 
 a = Analysis(
-    ['.\\src\\shiinobi\\cli.py'],
-    pathex=['.\\src\\shiinobi'],
+    ['./src/shiinobi/cli.py'],
+    pathex=['./src/shiinobi'],
     binaries=[],
     datas=[],
     hiddenimports=[],
-    hookspath=['.\\src\\_pyinstaller'],
+    hookspath=['./src/_pyinstaller'],
     hooksconfig={},
     runtime_hooks=[],
     excludes=[],
