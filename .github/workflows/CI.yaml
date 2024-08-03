@@ -12,13 +12,13 @@ jobs:
         name: Python ${{ matrix.python-version }} - ${{ matrix.os }} sample
         strategy:
             matrix:
-                os: ['ubuntu-22.04', 'windows-2019', 'macos-11']
+                os: ['ubuntu-latest', 'windows-latest', 'macos-latest']
                 python-version: [
                         '3.9',
                         '3.10',
                         '3.11',
                         '3.12',
-                        # '3.13-dev',
+                        '3.13-dev',
                         'pypy-3.9',
                         'pypy-3.10',
                     ]
