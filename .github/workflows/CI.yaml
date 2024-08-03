@@ -46,7 +46,7 @@ jobs:
                   poetry install
 
             - name: Optional build headers
-              run: apt-get install python3-dev
+              run: sudo apt-get install python3-dev
               if: runner.os == 'Linux'
 
             - name: Run pyinstaller
