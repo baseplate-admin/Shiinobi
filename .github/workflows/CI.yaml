@@ -23,8 +23,6 @@ jobs:
                         'pypy-3.10',
                     ]
 
-            max-parallel: 4
-
         continue-on-error: true
 
         steps:
