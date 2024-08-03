@@ -13,8 +13,7 @@ jobs:
         strategy:
             matrix:
                 os: ['ubuntu-22.04', 'windows-2019', 'macos-11']
-                python-version:
-                    [
+                python-version: [
                         '3.9',
                         '3.10',
                         '3.11',
@@ -23,7 +22,7 @@ jobs:
                         'pypy-3.9',
                         'pypy-3.10',
                     ]
-               
+
             max-parallel: 4
 
         continue-on-error: true
@@ -48,15 +47,14 @@ jobs:
               run: apt-get install python3-dev
               if: runner.os == 'ubuntu'
 
-
             - name: Run pyinstaller
               run: |
                   poetry run poe build-cli
 
             - uses: actions/upload-artifact@v3
-            with:
-                name: ${{ runner.os }}-package
-                path: shiinobi/dist/*
+              with:
+                  name: ${{ runner.os }}-package
+                  path: shiinobi/dist/*
 
     merge:
         runs-on: ubuntu-latest
