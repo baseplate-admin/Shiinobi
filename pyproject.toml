@@ -17,7 +17,7 @@ python = ">=3.9,<3.13"
 selectolax = "^0.3.21"
 requests-cache = "^1.2.1"
 requests-ratelimiter = "^0.7.0"
-pyinstaller = "^6.9.0"
+python-dateutil = "^2.9.0.post0"
 
 
 [tool.poetry.group.cli.dependencies]
@@ -26,11 +26,13 @@ typer = "^0.12.3"
 
 [tool.poetry.group.dev.dependencies]
 poethepoet = "^0.27.0"
+ruff = "^0.5.6"
+pyinstaller = "^6.9.0"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poe.tasks]
-"dev-cli" = "python ./cli/__main__.py"
+"dev-cli" = "python ./src/shiinobi/cli.py"
 "build-cli" = "pyinstaller ./cli.spec"
