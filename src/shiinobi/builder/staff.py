@@ -1,43 +1,32 @@
 import re
-from selectolax.parser import HTMLParser
 from typing import Set
-from shiinobi.utilities.regex import RegexHelper
-from shiinobi.utilities.session import session
 
 import xml.etree.ElementTree as ET
 
+from shiinobi.mixins.base import BaseClientWithHelper
 
-class StaffBuilder:
+
+class StaffBuilder(BaseClientWithHelper):
     def __init__(self) -> None:
-        # Reusuable clients
-        self.client = session
-
-        # Facades
-        self.regex_helper = RegexHelper()
-
+        super().__init__()
         # Urls
-        self.urls_to_visit = self.__build_people()
+        self.urls_to_visit = self.__build_urls_to_visit()
 
-    @staticmethod
-    def get_parser(html: str) -> HTMLParser:
-        return HTMLParser(html)
-
-    def __build_people(self) -> Set[int]:
+    def __build_urls_to_visit(self) -> Set[int]:
         url = "https://myanimelist.net/sitemap/index.xml"
         res = self.client.get(url)
         tree = ET.fromstring(res.content)
 
-        people_urls = []
-        pattern = re.compile(r"people")
+        pattern = re.compile(r"https://myanimelist\.net/sitemap/people-\d+\.xml")
 
-        people_urls = [
+        urls = [
             element.text
             for sitemap in tree
             for element in sitemap
             if "loc" in element.tag and pattern.search(element.text)
         ]
 
-        return set(people_urls)
+        return set(urls)
 
     def build_dictionary(
         self, excluded_ids: list[int] | None = None, sort: bool = False

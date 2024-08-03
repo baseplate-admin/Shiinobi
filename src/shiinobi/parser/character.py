@@ -6,8 +6,7 @@ from typing import TypedDict
 
 
 from shiinobi.decorators.return_error_decorator import return_on_error
-from shiinobi.mixins.parser.base import BaseParser
-from selectolax.parser import HTMLParser
+from shiinobi.mixins.base import BaseClientWithHelper
 
 
 class CharacterImageDictionary(TypedDict):
@@ -23,7 +22,7 @@ class CharacterDictionary(TypedDict):
     about: str
 
 
-class CharacterParser(BaseParser):
+class CharacterParser(BaseClientWithHelper):
     def __init__(self, html: str):
         super().__init__()
 

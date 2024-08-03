@@ -6,7 +6,7 @@ from dateutil import parser
 from selectolax.parser import Node
 
 from shiinobi.decorators.return_error_decorator import return_on_error
-from shiinobi.mixins.parser.base import BaseParser
+from shiinobi.mixins.base import BaseClientWithHelper
 
 
 class AnimeDictionary(TypedDict):
@@ -30,7 +30,7 @@ class AnimeDictionary(TypedDict):
     endings: list[int]
 
 
-class AnimeParser(BaseParser):
+class AnimeParser(BaseClientWithHelper):
     def __init__(self, html: str) -> None:
         super().__init__()
 

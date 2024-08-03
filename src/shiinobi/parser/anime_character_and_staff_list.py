@@ -1,6 +1,6 @@
 from shiinobi.decorators.return_error_decorator import return_on_error
 
-from shiinobi.mixins.parser.base import BaseParser
+from shiinobi.mixins.base import BaseClientWithHelper
 
 
 class AnimeCharacterAndStaffListDictionary:
@@ -8,7 +8,7 @@ class AnimeCharacterAndStaffListDictionary:
     staffs: list[int]
 
 
-class AnimeCharacterAndStaffListParser(BaseParser):
+class AnimeCharacterAndStaffListParser(BaseClientWithHelper):
     def __init__(self, html: str) -> None:
         super().__init__()
         self.parser = self.get_parser(html)

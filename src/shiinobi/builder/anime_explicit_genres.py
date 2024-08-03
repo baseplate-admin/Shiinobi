@@ -1,7 +1,7 @@
 from shiinobi.mixins.base import BaseClientWithHelper
 
 
-class AnimeThemeBuilder(BaseClientWithHelper):
+class AnimeExplicitGenreBuilder(BaseClientWithHelper):
     def __init__(self) -> None:
         super().__init__()
         self.anchors: list[str] = []
@@ -15,7 +15,7 @@ class AnimeThemeBuilder(BaseClientWithHelper):
         parser = self.get_parser(html)
         theme_parent_node = (
             parser.select("div.normal_header")
-            .text_contains("Themes")
+            .text_contains("Explicit Genres")
             .matches[0]
             .next.next
         )

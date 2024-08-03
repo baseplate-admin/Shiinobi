@@ -11,6 +11,10 @@ from shiinobi.utilities.session import session
 from shiinobi.builder.staff import StaffBuilder
 from shiinobi.parser.staff import StaffParser
 from shiinobi.builder.anime_theme import AnimeThemeBuilder
+from shiinobi.builder.anime_genres import AnimeGenreBuilder
+from shiinobi.builder.anime_explicit_genres import AnimeExplicitGenreBuilder
+from shiinobi.builder.anime_demographics import AnimeDemographicsBuilder
+from shiinobi.builder.anime import AnimeBuilder
 
 app = typer.Typer()
 
@@ -28,14 +32,43 @@ def print_json(_dict: dict[any, any]):
     typer.echo(json.dumps(_dict, default=custom_serializer))
 
 
-def get_url_given_key_and_id(key: Literal["people", ""], mal_id: int) -> session:
+def get_url_given_key_and_id(key: Literal["people"], mal_id: int) -> session:
     return session.get(f"https://myanimelist.net/{key}/{mal_id}")
 
 
 @app.command()
-def get_anime_themes():
+def get_demographics(
+    sort: Annotated[Optional[bool], typer.Option()] = False,
+):
+    builder = AnimeDemographicsBuilder()
+    dictionary = builder.build_dictionary(sort=sort)
+    print_json(dictionary)
+
+
+@app.command()
+def get_anime_explicit_genres(
+    sort: Annotated[Optional[bool], typer.Option()] = False,
+):
+    builder = AnimeExplicitGenreBuilder()
+    dictionary = builder.build_dictionary(sort=sort)
+    print_json(dictionary)
+
+
+@app.command()
+def get_anime_genres(
+    sort: Annotated[Optional[bool], typer.Option()] = False,
+):
+    builder = AnimeGenreBuilder()
+    dictionary = builder.build_dictionary(sort=sort)
+    print_json(dictionary)
+
+
+@app.command()
+def get_anime_themes(
+    sort: Annotated[Optional[bool], typer.Option()] = False,
+):
     builder = AnimeThemeBuilder()
-    dictionary = builder.build_dictionary()
+    dictionary = builder.build_dictionary(sort=sort)
     print_json(dictionary)
 
 
@@ -46,11 +79,21 @@ def get_specific_staff_information(staff_id: int):
 
 
 @app.command()
-def get_staff_dict(
+def get_staff_urls(
     excluded_ids: Annotated[Optional[list[int]], typer.Option()] = [],
     sort: Annotated[Optional[bool], typer.Option()] = False,
 ):
     builder = StaffBuilder()
+    dictionary = builder.build_dictionary(excluded_ids=excluded_ids, sort=sort)
+    print_json(dictionary)
+
+
+@app.command()
+def get_anime_urls(
+    excluded_ids: Annotated[Optional[list[int]], typer.Option()] = [],
+    sort: Annotated[Optional[bool], typer.Option()] = False,
+):
+    builder = AnimeBuilder()
     dictionary = builder.build_dictionary(excluded_ids=excluded_ids, sort=sort)
     print_json(dictionary)
 

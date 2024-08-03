@@ -4,7 +4,7 @@ from shiinobi.utilities.string import StringHelper
 from shiinobi.utilities.session import session
 
 
-class BaseParser:
+class BaseClientWithHelper:
     def __init__(self):
         # Facades
         self.regex_helper = RegexHelper()
