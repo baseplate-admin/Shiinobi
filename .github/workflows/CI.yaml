@@ -17,9 +17,9 @@ jobs:
             matrix:
                 os: ['ubuntu-latest', 'windows-latest', 'macos-latest']
                 python-version: [
-                        '3.9',
-                        '3.10',
-                        '3.11',
+                        # '3.9',
+                        # '3.10',
+                        # '3.11',
                         '3.12',
                         # 'pypy-3.10'
                     ]
@@ -50,10 +50,10 @@ jobs:
               run: |
                   poetry run poe build-cli
 
-            - uses: actions/upload-artifact@v3
+            - uses: actions/upload-artifact@v4
               with:
                   name: ${{ runner.os }}-package
-                  path: Shiinobi/Shiinobi/dist/*
+                  path: dist/*
 
     merge:
         runs-on: ubuntu-latest
