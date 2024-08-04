@@ -1,7 +1,6 @@
 import datetime
 
 import requests
-
 from shiinobi.parser.staff import StaffParser
 from shiinobi.utilities.session import session
 

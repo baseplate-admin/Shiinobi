@@ -1,7 +1,6 @@
 import datetime
 
 import requests
-
 from shiinobi.parser.anime_producer import AnimeProducerParser
 from shiinobi.utilities.session import session
 

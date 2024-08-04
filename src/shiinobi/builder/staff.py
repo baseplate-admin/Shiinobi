@@ -1,7 +1,6 @@
 import re
-from typing import Set
-
 import xml.etree.ElementTree as ET
+from typing import Set
 
 from shiinobi.mixins.base import BaseClientWithHelper
 

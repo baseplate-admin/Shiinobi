@@ -1,25 +1,25 @@
-import typer
-import json
-from io import BytesIO
 import base64
-
+import json
+from datetime import datetime
+from io import BytesIO
 from typing import Literal, Optional
+
+import typer
 from typing_extensions import Annotated
 
-from datetime import datetime
-from shiinobi.utilities.session import session
-from shiinobi.builder.staff import StaffBuilder
-from shiinobi.parser.staff import StaffParser
-from shiinobi.builder.anime_theme import AnimeThemeBuilder
-from shiinobi.builder.anime_genres import AnimeGenreBuilder
-from shiinobi.builder.anime_explicit_genres import AnimeExplicitGenreBuilder
-from shiinobi.builder.anime_demographics import AnimeDemographicsBuilder
 from shiinobi.builder.anime import AnimeBuilder
+from shiinobi.builder.anime_demographics import AnimeDemographicsBuilder
+from shiinobi.builder.anime_explicit_genres import AnimeExplicitGenreBuilder
+from shiinobi.builder.anime_genres import AnimeGenreBuilder
+from shiinobi.builder.anime_theme import AnimeThemeBuilder
 from shiinobi.builder.character import CharacterBuilder
+from shiinobi.builder.staff import StaffBuilder
 from shiinobi.parser.anime import AnimeParser
 from shiinobi.parser.anime_genre import AnimeGenreParser
-from shiinobi.parser.character import CharacterParser
 from shiinobi.parser.anime_producer import AnimeProducerParser
+from shiinobi.parser.character import CharacterParser
+from shiinobi.parser.staff import StaffParser
+from shiinobi.utilities.session import session
 
 app = typer.Typer()
 
@@ -108,6 +108,14 @@ def get_specific_anime_genre_information(genre_id: int):
 def get_specific_character_information(character_id: int):
     res = get_session_given_key_and_id("character", character_id)
     builder = CharacterParser(res.text)
+    dictionary = builder.build_dictionary()
+    print_json(dictionary)
+
+
+@app.command()
+def get_specific_producer_information(producer_id: int):
+    res = get_session_given_key_and_id("anime/producer", producer_id)
+    builder = AnimeProducerParser(res.text)
     dictionary = builder.build_dictionary()
     print_json(dictionary)
 

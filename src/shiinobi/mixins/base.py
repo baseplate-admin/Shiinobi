@@ -1,7 +1,8 @@
 from selectolax.parser import HTMLParser
+
 from shiinobi.utilities.regex import RegexHelper
-from shiinobi.utilities.string import StringHelper
 from shiinobi.utilities.session import session
+from shiinobi.utilities.string import StringHelper
 
 __all__ = ["BaseClientWithHelper"]
 

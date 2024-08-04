@@ -1,9 +1,8 @@
-from shiinobi.mixins.base import BaseClientWithHelper
-
+import re
 import xml.etree.ElementTree as ET
 from typing import Set
 
-import re
+from shiinobi.mixins.base import BaseClientWithHelper
 
 __all__ = ["CharacterBuilder"]
 

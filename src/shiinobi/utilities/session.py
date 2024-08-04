@@ -4,7 +4,7 @@ from requests import Session
 from requests.adapters import HTTPAdapter
 from requests.structures import CaseInsensitiveDict
 from requests.utils import DEFAULT_ACCEPT_ENCODING
-from requests_cache import SQLiteCache, CacheMixin
+from requests_cache import CacheMixin, SQLiteCache
 from requests_ratelimiter import LimiterMixin, SQLiteBucket
 from urllib3.util import Retry
 

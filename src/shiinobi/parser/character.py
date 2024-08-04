@@ -4,7 +4,6 @@
 from io import BytesIO
 from typing import TypedDict
 
-
 from shiinobi.decorators.return_error_decorator import return_on_error
 from shiinobi.mixins.base import BaseClientWithHelper
 
