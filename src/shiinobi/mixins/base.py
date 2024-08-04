@@ -8,6 +8,13 @@ __all__ = ["BaseClientWithHelper"]
 
 
 class BaseClientWithHelper:
+    """
+    Base mixin that includes:
+        - RegexHelper
+        - StringHelper
+        - session
+    """
+
     def __init__(self):
         # Facades
         self.regex_helper = RegexHelper()

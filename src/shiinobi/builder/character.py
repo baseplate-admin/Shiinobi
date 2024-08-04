@@ -8,6 +8,8 @@ __all__ = ["CharacterBuilder"]
 
 
 class CharacterBuilder(BaseClientWithHelper):
+    """The base class for character builder"""
+
     def __init__(self) -> None:
         super().__init__()
         # Urls

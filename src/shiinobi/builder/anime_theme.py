@@ -4,6 +4,8 @@ __all__ = ["AnimeThemeBuilder"]
 
 
 class AnimeThemeBuilder(BaseClientWithHelper):
+    """The base class for anime theme builder"""
+
     def __init__(self) -> None:
         super().__init__()
         self.anchors: list[str] = []

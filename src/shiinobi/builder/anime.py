@@ -8,6 +8,8 @@ __all__ = ["AnimeBuilder"]
 
 
 class AnimeBuilder(BaseClientWithHelper):
+    """The base class for anime builder"""
+
     def __init__(self) -> None:
         super().__init__()
         # Urls

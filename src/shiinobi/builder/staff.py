@@ -8,6 +8,8 @@ __all__ = ["StaffBuilder"]
 
 
 class StaffBuilder(BaseClientWithHelper):
+    """The base class for staff builder"""
+
     def __init__(self) -> None:
         super().__init__()
         # Urls

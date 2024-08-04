@@ -4,6 +4,8 @@ __all__ = ["AnimeDemographicsBuilder"]
 
 
 class AnimeDemographicsBuilder(BaseClientWithHelper):
+    """The base class for anime demographics builder"""
+
     def __init__(self) -> None:
         super().__init__()
         self.anchors: list[str] = []

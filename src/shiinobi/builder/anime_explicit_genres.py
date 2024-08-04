@@ -4,6 +4,8 @@ __all__ = ["AnimeExplicitGenreBuilder"]
 
 
 class AnimeExplicitGenreBuilder(BaseClientWithHelper):
+    """The base class for anime explicit genre builder"""
+
     def __init__(self) -> None:
         super().__init__()
         self.anchors: list[str] = []
