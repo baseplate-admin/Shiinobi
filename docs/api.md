@@ -101,3 +101,14 @@
 .. autoclass:: BaseClientWithHelper
 
 ```
+
+# Utilities
+
+```{eval-rst}
+
+.. currentmodule:: shiinobi.utilities.regex
+
+
+.. autoclass:: RegexHelper
+
+```
