@@ -6,10 +6,12 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
+from shiinobi import __version__
+
 project = "shiinobi"
 copyright = "2024, baseplate-admin"
 author = "baseplate-admin"
-release = "0.0.0"
+release = __version__
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
