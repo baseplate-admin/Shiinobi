@@ -121,14 +121,6 @@ def get_specific_producer_information(producer_id: int):
 
 
 @app.command()
-def get_specific_producer_information(producer_id: int):
-    res = get_session_given_key_and_id("anime/producer", producer_id)
-    builder = AnimeProducerParser(res.text)
-    dictionary = builder.build_dictionary()
-    print_json(dictionary)
-
-
-@app.command()
 def get_staff_urls(
     excluded_ids: Annotated[Optional[list[int]], typer.Option()] = [],
     sort: Annotated[Optional[bool], typer.Option()] = False,
