@@ -2,7 +2,7 @@ import datetime
 from typing import TypedDict
 
 from dateutil import parser
-from decorators.return_error_decorator import return_on_error
+from shiinobi.decorators.return_error_decorator import return_on_error
 
 from shiinobi.mixins.base import BaseClientWithHelper
 
@@ -36,13 +36,19 @@ class AnimeProducerParser(BaseClientWithHelper):
     @property
     @return_on_error("")
     def get_producer_name(self) -> str:
-        node = self.parser.css_first("#contentWrapper > div:first-child > h1")
+        node = self.parser.css_first(".title-name")
         return self.string_helper.cleanse(node.text())
 
     @property
     @return_on_error("")
     def get_producer_japanese_name(self) -> str:
         node = self.parser.select("span").text_contains("Japanese:")
+        return self.string_helper.cleanse(node.matches[0].next.text())
+
+    @property
+    @return_on_error("")
+    def get_producer_synonym(self) -> str:
+        node = self.parser.select("span").text_contains("Synonyms:")
         return self.string_helper.cleanse(node.matches[0].next.text())
 
     @property
@@ -65,6 +71,7 @@ class AnimeProducerParser(BaseClientWithHelper):
             "mal_id": self.get_producer_id,
             "name": self.get_producer_name,
             "name_japanese": self.get_producer_japanese_name,
+            "synonyms": self.get_producer_synonym,
             "established": self.get_producter_establish_date,
             "about": self.get_producer_about,
         }

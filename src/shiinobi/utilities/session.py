@@ -10,6 +10,7 @@ from urllib3.util import Retry
 
 __all__ = ["session"]
 
+
 class CachedLimiterSession(CacheMixin, LimiterMixin, Session):
     """
     Session class with caching and rate-limiting behavior.

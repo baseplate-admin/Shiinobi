@@ -2,6 +2,7 @@ import re
 
 __all__ = ["RegexHelper"]
 
+
 class RegexHelper:
     # Getters
     # -------

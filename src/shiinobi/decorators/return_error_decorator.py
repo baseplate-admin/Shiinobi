@@ -7,6 +7,7 @@ from typing import Any, Callable
 
 __all__ = ["return_on_error"]
 
+
 def return_on_error[T](return_type: T) -> Callable[[Callable], T]:
     def decorator(func: Callable) -> Callable:
         @functools.wraps(func)

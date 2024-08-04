@@ -6,6 +6,7 @@ from shiinobi.mixins.base import BaseClientWithHelper
 
 __all__ = ["CharacterBuilder"]
 
+
 class CharacterBuilder(BaseClientWithHelper):
     def __init__(self) -> None:
         super().__init__()
