@@ -1,5 +1,3 @@
-# Code Owners : `horidesu`, `baseplate-admin`
-# Licensed Under : AGPL-v3
 import datetime
 from typing import TypedDict
 
@@ -17,7 +15,7 @@ class ProducerDictionary(TypedDict):
     about: str
 
 
-class ProducerParser(BaseClientWithHelper):
+class AnimeProducerParser(BaseClientWithHelper):
     def __init__(self, html: str):
         super().__init__()
 

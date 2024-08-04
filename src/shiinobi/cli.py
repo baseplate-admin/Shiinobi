@@ -18,6 +18,8 @@ from shiinobi.builder.anime import AnimeBuilder
 from shiinobi.builder.character import CharacterBuilder
 from shiinobi.parser.anime import AnimeParser
 from shiinobi.parser.anime_genre import AnimeGenreParser
+from shiinobi.parser.character import CharacterParser
+from shiinobi.parser.anime_producer import AnimeProducerParser
 
 app = typer.Typer()
 
@@ -36,7 +38,8 @@ def print_json(_dict: dict[any, any]):
 
 
 def get_session_given_key_and_id(
-    key: Literal["people", "anime", "anime/genre"], mal_id: int
+    key: Literal["people", "anime", "anime/genre", "character", "anime/producer"],
+    mal_id: int,
 ) -> session:
     return session.get(f"https://myanimelist.net/{key}/{mal_id}")
 
@@ -97,6 +100,22 @@ def get_specific_anime_information(anime_id: int):
 def get_specific_anime_genre_information(genre_id: int):
     res = get_session_given_key_and_id("anime/genre", genre_id)
     builder = AnimeGenreParser(res.text)
+    dictionary = builder.build_dictionary()
+    print_json(dictionary)
+
+
+@app.command()
+def get_specific_character_information(character_id: int):
+    res = get_session_given_key_and_id("character", character_id)
+    builder = CharacterParser(res.text)
+    dictionary = builder.build_dictionary()
+    print_json(dictionary)
+
+
+@app.command()
+def get_specific_producer_information(producer_id: int):
+    res = get_session_given_key_and_id("anime/producer", producer_id)
+    builder = AnimeProducerParser(res.text)
     dictionary = builder.build_dictionary()
     print_json(dictionary)
 
