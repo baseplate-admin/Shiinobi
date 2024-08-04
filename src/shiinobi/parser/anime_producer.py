@@ -6,6 +6,8 @@ from decorators.return_error_decorator import return_on_error
 
 from shiinobi.mixins.base import BaseClientWithHelper
 
+__all__ = ["AnimeProducerParser"]
+
 
 class ProducerDictionary(TypedDict):
     mal_id: str

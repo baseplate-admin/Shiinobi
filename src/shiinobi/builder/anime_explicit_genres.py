@@ -1,5 +1,7 @@
 from shiinobi.mixins.base import BaseClientWithHelper
 
+__all__ = ["AnimeExplicitGenreBuilder"]
+
 
 class AnimeExplicitGenreBuilder(BaseClientWithHelper):
     def __init__(self) -> None:

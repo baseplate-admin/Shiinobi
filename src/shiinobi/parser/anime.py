@@ -8,6 +8,8 @@ from selectolax.parser import Node
 from shiinobi.decorators.return_error_decorator import return_on_error
 from shiinobi.mixins.base import BaseClientWithHelper
 
+__all__ = ["AnimeParser"]
+
 
 class AnimeDictionary(TypedDict):
     mal_id: int

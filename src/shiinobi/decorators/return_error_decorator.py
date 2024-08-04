@@ -5,6 +5,7 @@ from typing import Any, Callable
 #   AttributeError : In case `selectolax` fails to find the dom node
 #   IndexError : In case `selectolax` finds empty dom node
 
+__all__ = ["return_on_error"]
 
 def return_on_error[T](return_type: T) -> Callable[[Callable], T]:
     def decorator(func: Callable) -> Callable:

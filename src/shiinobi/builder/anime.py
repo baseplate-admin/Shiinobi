@@ -5,6 +5,8 @@ from typing import Set
 
 import re
 
+__all__ = ["AnimeBuilder"]
+
 
 class AnimeBuilder(BaseClientWithHelper):
     def __init__(self) -> None:

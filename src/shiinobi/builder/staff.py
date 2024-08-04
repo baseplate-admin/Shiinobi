@@ -5,6 +5,8 @@ import xml.etree.ElementTree as ET
 
 from shiinobi.mixins.base import BaseClientWithHelper
 
+__all__ = ["StaffBuilder"]
+
 
 class StaffBuilder(BaseClientWithHelper):
     def __init__(self) -> None:

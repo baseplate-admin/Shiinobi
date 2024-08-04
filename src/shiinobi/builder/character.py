@@ -5,6 +5,7 @@ from typing import Set
 
 import re
 
+__all__ = ["CharacterBuilder"]
 
 class CharacterBuilder(BaseClientWithHelper):
     def __init__(self) -> None:

@@ -1,6 +1,8 @@
 import html
 import re
 
+__all__ = ["StringHelper"]
+
 
 class StringHelper:
     def cleanse(self, string: str) -> str:

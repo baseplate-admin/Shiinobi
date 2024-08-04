@@ -8,6 +8,7 @@ from requests_cache import SQLiteCache, CacheMixin
 from requests_ratelimiter import LimiterMixin, SQLiteBucket
 from urllib3.util import Retry
 
+__all__ = ["session"]
 
 class CachedLimiterSession(CacheMixin, LimiterMixin, Session):
     """
