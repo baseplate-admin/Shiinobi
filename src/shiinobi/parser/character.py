@@ -67,7 +67,9 @@ class CharacterParser(BaseClientWithHelper):
         html.strip_tags(tags)
 
         sentences = html.text().split("\n")
-        return "\n\n".join(sentences).strip()
+        text = "\n".join(sentences).strip()
+        cleaned_text = self.regex_helper.remove_multiple_newline(text)
+        return cleaned_text
 
     @property
     @return_on_error("")

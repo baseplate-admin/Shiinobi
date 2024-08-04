@@ -44,7 +44,11 @@ class AnimeGenreParser(BaseClientWithHelper):
     @return_on_error("")
     def get_description(self) -> str:
         text = self.parser.css_first("p.genre-description").text()
-        return self.regex_helper.replace_br_with_newline(text)
+        cleaned_text = self.regex_helper.replace_br_with_newline(
+            self.regex_helper.remove_multiple_newline(text)
+        )
+
+        return cleaned_text
 
     @property
     @return_on_error("")

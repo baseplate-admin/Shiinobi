@@ -62,9 +62,11 @@ class AnimeProducerParser(BaseClientWithHelper):
     @property
     @return_on_error("")
     def get_producer_about(self) -> str:
-        return self.parser.css_first(
+        text = self.parser.css_first(
             "#content > div:nth-of-type(1) div.spaceit_pad > span:not(.dark_text)"
         ).text()
+        cleaned_text = self.regex_helper.remove_multiple_newline(text)
+        return cleaned_text
 
     def build_dictionary(self) -> ProducerDictionary:
         dictionary: ProducerDictionary = {

@@ -61,9 +61,11 @@ class StaffParser(BaseClientWithHelper):
     @property
     @return_on_error("")
     def get_staff_about(self) -> str:
-        return self.parser.css_first(
+        text = self.parser.css_first(
             "div#content table tr td.borderClass .people-informantion-more"
         ).text()
+        cleaed_text = self.regex_helper.remove_multiple_newline(text)
+        return cleaed_text
 
     @property
     @return_on_error("")

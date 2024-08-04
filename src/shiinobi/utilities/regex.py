@@ -6,7 +6,8 @@ __all__ = ["RegexHelper"]
 class RegexHelper:
     # Getters
     # -------
-    def get_id_from_url(self, url: str) -> int:
+    @staticmethod
+    def get_id_from_url(url: str) -> int:
         pattern = re.compile(r"/(\d+)/")
 
         _match = re.search(pattern, url)
@@ -19,14 +20,16 @@ class RegexHelper:
 
         return int(_id_)
 
-    def get_content_between_first_brackets(self, text: str) -> str:
+    @staticmethod
+    def get_content_between_first_brackets(text: str) -> str:
         pattern = re.compile(r"\((.*?)\)")
         if content := re.search(pattern, text):
             return content.group(1)
         else:
             raise Exception("No content found")
 
-    def get_first_integer_from_url(self, text: str) -> int:
+    @staticmethod
+    def get_first_integer_from_url(text: str) -> int:
         pattern = r"\/(\d+)\/"
         _matches = re.search(pattern, text)
         _id = _matches.group(1)
@@ -37,20 +40,27 @@ class RegexHelper:
 
     # Checks
     # -------
-    def check_if_string_contains_integer(self, string: str) -> bool:
+    @staticmethod
+    def check_if_string_contains_integer(string: str) -> bool:
         pattern = re.compile(r"\d+")
         return bool(re.search(pattern, string))
 
-    def check_if_string_contains_bracket(self, string: str) -> bool:
+    @staticmethod
+    def check_if_string_contains_bracket(string: str) -> bool:
         pattern = re.compile(r"\[\d+\]")
         return bool(re.search(pattern, string))
 
     # Replacements
     # ------------
-    def replace_br_with_newline(self, text: str) -> str:
+    @staticmethod
+    def replace_br_with_newline(text: str) -> str:
         return re.sub(r"<br\s*\/?>", "\n", text)
 
-    def remove_anime_from_the_end_of_a_string(self, text: str) -> str:
+    @staticmethod
+    def remove_anime_from_the_end_of_a_string(text: str) -> str:
         pattern = r"(.*?)\sAnime"
-
         return re.sub(pattern, r"\1", text)
+
+    @staticmethod
+    def remove_multiple_newline(text: str) -> str:
+        return re.sub(r"\n+", "\n", text)
