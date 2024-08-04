@@ -15,6 +15,9 @@ from shiinobi.builder.anime_theme import AnimeThemeBuilder
 from shiinobi.builder.character import CharacterBuilder
 from shiinobi.builder.staff import StaffBuilder
 from shiinobi.parser.anime import AnimeParser
+from shiinobi.parser.anime_character_and_staff_list import (
+    AnimeCharacterAndStaffListParser,
+)
 from shiinobi.parser.anime_genre import AnimeGenreParser
 from shiinobi.parser.anime_producer import AnimeProducerParser
 from shiinobi.parser.character import CharacterParser
@@ -92,6 +95,14 @@ def get_specific_staff_information(staff_id: int):
 def get_specific_anime_information(anime_id: int):
     res = get_session_given_key_and_id("anime", anime_id)
     builder = AnimeParser(res.text)
+    dictionary = builder.build_dictionary()
+    print_json(dictionary)
+
+
+@app.command()
+def get_specific_anime_character_and_staff_list_information(anime_id: int):
+    res = get_session_given_key_and_id("anime", anime_id)
+    builder = AnimeCharacterAndStaffListParser(res.text)
     dictionary = builder.build_dictionary()
     print_json(dictionary)
 
