@@ -7,6 +7,8 @@ from typing import Literal, Optional
 import typer
 from typing_extensions import Annotated
 
+from shiinobi import __version__
+
 from shiinobi.builder.anime import AnimeBuilder
 from shiinobi.builder.anime_demographics import AnimeDemographicsBuilder
 from shiinobi.builder.anime_explicit_genres import AnimeExplicitGenreBuilder
@@ -45,6 +47,26 @@ def get_session_given_key_and_id(
     mal_id: int,
 ) -> session:
     return session.get(f"https://myanimelist.net/{key}/{mal_id}")
+
+
+def version_callback(value: bool):
+    if value:
+        typer.echo(__version__)
+        raise typer.Exit()
+
+
+@app.callback()
+def main(
+    version: bool = typer.Option(
+        None,
+        "--version",
+        "-v",
+        callback=version_callback,
+        is_eager=True,
+        help="Print version an exit",
+    )
+):
+    pass
 
 
 @app.command()
