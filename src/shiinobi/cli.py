@@ -49,26 +49,9 @@ def get_session_given_key_and_id(
     return session.get(f"https://myanimelist.net/{key}/{mal_id}")
 
 
-def version_callback(value: bool):
-    if value:
-        typer.echo(__version__)
-        raise typer.Exit()
-
-
-@app.callback()
-def main(
-    version: Annotated[
-        Optional[bool],
-        typer.Option(
-            "--version",
-            "-v",
-            callback=version_callback,
-            is_eager=True,
-            help="Print version an exit",
-        ),
-    ] = None
-):
-    pass
+@app.command()
+def version():
+    typer.echo(__version__)
 
 
 @app.command()
