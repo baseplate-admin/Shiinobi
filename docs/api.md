@@ -1,6 +1,10 @@
-# Builder
+# API
 
-## Anime
+This page documents the usuable methods of `shiinobi`
+
+## Builder
+
+### Anime
 
 ```{eval-rst}
 
@@ -13,7 +17,7 @@
 
 ```
 
-## Anime Demographics
+### Anime Demographics
 
 ```{eval-rst}
 
@@ -26,7 +30,7 @@
 
 ```
 
-## Anime Explicit Genres
+### Anime Explicit Genres
 
 ```{eval-rst}
 
@@ -40,7 +44,7 @@
 
 ```
 
-## Anime Genre
+### Anime Genre
 
 ```{eval-rst}
 
@@ -53,7 +57,7 @@
 
 ```
 
-## Anime Theme
+### Anime Theme
 
 ```{eval-rst}
 
@@ -67,7 +71,7 @@
 
 ```
 
-## Character
+### Character
 
 ```{eval-rst}
 
@@ -80,7 +84,7 @@
 
 ```
 
-# Decorators
+## Decorators
 
 ```{eval-rst}
 
@@ -102,7 +106,7 @@
 
 ```
 
-# Utilities
+## Utilities
 
 ```{eval-rst}
 
