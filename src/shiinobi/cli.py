@@ -57,14 +57,16 @@ def version_callback(value: bool):
 
 @app.callback()
 def main(
-    version: bool = typer.Option(
-        None,
-        "--version",
-        "-v",
-        callback=version_callback,
-        is_eager=True,
-        help="Print version an exit",
-    )
+    version: Annotated[
+        Optional[bool],
+        typer.Option(
+            "--version",
+            "-v",
+            callback=version_callback,
+            is_eager=True,
+            help="Print version an exit",
+        ),
+    ] = None
 ):
     pass
 
