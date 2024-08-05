@@ -55,21 +55,6 @@ def version_callback(value: bool):
         raise typer.Exit()
 
 
-@app.callback()
-def main(
-    version: Annotated[
-        Optional[bool],
-        typer.Option(
-            "--version",
-            "-v",
-            callback=version_callback,
-            is_eager=True,
-            help="Print version an exit",
-        ),
-    ] = None,
-): ...
-
-
 @app.command()
 def get_demographics(
     sort: Annotated[Optional[bool], typer.Option()] = False,
@@ -182,6 +167,21 @@ def get_character_urls(
     builder = CharacterBuilder()
     dictionary = builder.build_dictionary(excluded_ids=excluded_ids, sort=sort)
     print_json(dictionary)
+
+
+@app.callback()
+def main(
+    version: Annotated[
+        Optional[bool],
+        typer.Option(
+            "--version",
+            "-v",
+            callback=version_callback,
+            is_eager=True,
+            help="Print version an exit",
+        ),
+    ] = None,
+): ...
 
 
 if __name__ == "__main__":
