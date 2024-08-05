@@ -4,6 +4,8 @@ This page documents the usuable methods of `shiinobi`
 
 ## Builder
 
+This type of classes returns the available entries from the website.
+
 ### Anime
 
 ```{eval-rst}
@@ -95,7 +97,7 @@ This page documents the usuable methods of `shiinobi`
 
 ```
 
-# Mixins
+## Mixins
 
 ```{eval-rst}
 
