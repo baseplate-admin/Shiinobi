@@ -66,9 +66,8 @@ def main(
             is_eager=True,
             help="Print version an exit",
         ),
-    ] = None
-):
-    pass
+    ] = None,
+): ...
 
 
 @app.command()
