@@ -7,6 +7,8 @@ from typing import Literal, Optional
 import typer
 from typing_extensions import Annotated
 
+from shiinobi import __version__
+
 from shiinobi.builder.anime import AnimeBuilder
 from shiinobi.builder.anime_demographics import AnimeDemographicsBuilder
 from shiinobi.builder.anime_explicit_genres import AnimeExplicitGenreBuilder
@@ -45,6 +47,12 @@ def get_session_given_key_and_id(
     mal_id: int,
 ) -> session:
     return session.get(f"https://myanimelist.net/{key}/{mal_id}")
+
+
+def version_callback(value: bool):
+    if value:
+        typer.echo(__version__)
+        raise typer.Exit()
 
 
 @app.command()
@@ -159,6 +167,21 @@ def get_character_urls(
     builder = CharacterBuilder()
     dictionary = builder.build_dictionary(excluded_ids=excluded_ids, sort=sort)
     print_json(dictionary)
+
+
+@app.callback()
+def main(
+    version: Annotated[
+        Optional[bool],
+        typer.Option(
+            "--version",
+            "-v",
+            callback=version_callback,
+            is_eager=True,
+            help="Print version and exit",
+        ),
+    ] = None,
+): ...
 
 
 if __name__ == "__main__":
