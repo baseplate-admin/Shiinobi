@@ -178,7 +178,7 @@ def main(
             "-v",
             callback=version_callback,
             is_eager=True,
-            help="Print version an exit",
+            help="Print version and exit",
         ),
     ] = None,
 ): ...
