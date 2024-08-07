@@ -10,7 +10,7 @@ This type of classes returns the available entries from the website.
 
 ```{eval-rst}
 
-.. currentmodule:: shiinobi.builder.anime
+.. currentmodule:: shiinobi.builder.myanimelist.anime
 
 
 .. autoclass:: AnimeBuilder
@@ -23,7 +23,7 @@ This type of classes returns the available entries from the website.
 
 ```{eval-rst}
 
-.. currentmodule:: shiinobi.builder.anime_demographics
+.. currentmodule:: shiinobi.builder.myanimelist.anime_demographics
 
 
 .. autoclass:: AnimeDemographicsBuilder
@@ -36,7 +36,7 @@ This type of classes returns the available entries from the website.
 
 ```{eval-rst}
 
-.. currentmodule:: shiinobi.builder.anime_explicit_genres
+.. currentmodule:: shiinobi.builder.myanimelist.anime_explicit_genres
 
 
 .. autoclass:: AnimeExplicitGenreBuilder
@@ -50,7 +50,7 @@ This type of classes returns the available entries from the website.
 
 ```{eval-rst}
 
-.. currentmodule:: shiinobi.builder.anime_genres
+.. currentmodule:: shiinobi.builder.myanimelist.anime_genres
 
 
 .. autoclass:: AnimeGenreBuilder
@@ -63,7 +63,7 @@ This type of classes returns the available entries from the website.
 
 ```{eval-rst}
 
-.. currentmodule:: shiinobi.builder.anime_theme
+.. currentmodule:: shiinobi.builder.myanimelist.anime_theme
 
 
 .. autoclass:: AnimeThemeBuilder
@@ -77,7 +77,7 @@ This type of classes returns the available entries from the website.
 
 ```{eval-rst}
 
-.. currentmodule:: shiinobi.builder.character
+.. currentmodule:: shiinobi.builder.myanimelist.character
 
 
 .. autoclass:: CharacterBuilder
