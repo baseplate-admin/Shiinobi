@@ -67,7 +67,7 @@ def version_callback(value: bool):
 
 
 @app.command()
-def get_myanimelist_all_anime_genre(
+def get_myanimelist_all_anime_genres(
     sort: Annotated[Optional[bool], typer.Option()] = False,
 ):
     builder = AnimeAllGenreBuilder()
@@ -202,7 +202,7 @@ def get_myanimelist_demographics(
 
 
 @app.command()
-def get_myanimelist_all_manga_genre(
+def get_myanimelist_all_manga_genres(
     sort: Annotated[Optional[bool], typer.Option()] = False,
 ):
     builder = MangaAllGenreBuilder()
