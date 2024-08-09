@@ -1,7 +1,7 @@
 <div align="center">
   
-<h1><code>Shiinobi</code></h1>
-<p>[what should we add here? desc]</p>
+<h1>Shiinobi</h1>
+<p>A Python CLI tool for extracting and retrieving data from various platforms, <br> including anime and manga.</p>
 
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/Shiinobi?style=flat-square&color=%23B8B8C4)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/Shiinobi?style=flat-square&color=%23B8B8C4)
