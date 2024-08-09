@@ -20,6 +20,8 @@ from shiinobi.parser.myanimelist.anime import AnimeParser
 from shiinobi.parser.myanimelist.anime_character_and_staff_list import (
     AnimeCharacterAndStaffListParser,
 )
+from shiinobi.builder.myanimelist.anime_all_genres import AnimeAllGenreBuilder
+
 from shiinobi.parser.myanimelist.anime_genre import AnimeGenreParser
 from shiinobi.parser.myanimelist.anime_producer import AnimeProducerParser
 from shiinobi.parser.myanimelist.character import CharacterParser
@@ -53,6 +55,15 @@ def version_callback(value: bool):
     if value:
         typer.echo(__version__)
         raise typer.Exit()
+
+
+@app.command()
+def get_myanimelist_all_genre(
+    sort: Annotated[Optional[bool], typer.Option()] = False,
+):
+    builder = AnimeAllGenreBuilder()
+    dictionary = builder.build_dictionary()
+    print_json(dictionary)
 
 
 @app.command()
