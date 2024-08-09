@@ -16,3 +16,58 @@
 ![Read the Docs](https://img.shields.io/readthedocs/shiinobi?style=for-the-badge&color=%23B8B8C4)
 
 </div>
+
+## API Documentation
+
+The API documentation for Shiinobi is available [here](https://shiinobi.readthedocs.io/).
+
+## Installation
+
+1. Clone the repository and navigate into dir:
+```bash
+git clone https://github.com/baseplate-admin/Shiinobi.git
+cd Shiinobi
+```
+
+2. Install dependencies:
+```bash
+poetry install
+```
+
+3. Build the CLI tool:
+```bash
+poetry run poe build-cli
+```
+
+## Usage
+
+For a list of available commands, use:
+```bash
+poetry run poe dev-cli --help
+# python ./src/shiinobi/cli.py --help
+```
+
+Run the CLI tool with:
+```bash
+poetry run poe dev-cli <command>
+# python ./src/shiinobi/cli.py <command>
+```
+
+## Executable Binaries
+
+Pre-built executable binaries are available for Windows, Linux, and macOS in the [releases](https://github.com/baseplate-admin/Shiinobi/releases) section.
+
+## Used by
+
+Shiinobi is primarily used within the [CoreSeeder](https://github.com/coreproject-moe/CoreProject/tree/master/seeder) project.
+
+## Contributing
+
+ - If you have a suggestion/idea that would make this project better, please create a pull request. All pull requests will be reviewed by us, and adjusted.
+   You can also open a [new issue](https://github.com/baseplate-admin/Shiinobi/issues/new) or help us with an [existing one](https://github.com/baseplate-admin/Shiinobi/issues/).
+
+ - Other than that, you can also help the project by giving it a star ⭐ Your help is extremely appreciated :)
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/baseplate-admin/Shiinobi/blob/master/LICENSE) file for details.
