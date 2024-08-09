@@ -20,8 +20,14 @@ from shiinobi.parser.myanimelist.anime import AnimeParser
 from shiinobi.parser.myanimelist.anime_character_and_staff_list import (
     AnimeCharacterAndStaffListParser,
 )
-from shiinobi.builder.myanimelist.anime_all_genres import AnimeAllGenreBuilder
+from shiinobi.builder.myanimelist.manga_all_genres import MangaAllGenreBuilder
+from shiinobi.builder.myanimelist.manga_demographics import MangaDemographicsBuilder
+from shiinobi.builder.myanimelist.manga_explicit_genres import MangaExplicitGenreBuilder
+from shiinobi.builder.myanimelist.manga_genres import MangaGenreBuilder
+from shiinobi.builder.myanimelist.manga_maganize import MangaMaganizeBuilder
+from shiinobi.builder.myanimelist.manga_theme import MangaThemeBuilder
 
+from shiinobi.builder.myanimelist.anime_all_genres import AnimeAllGenreBuilder
 from shiinobi.parser.myanimelist.anime_genre import AnimeGenreParser
 from shiinobi.parser.myanimelist.anime_producer import AnimeProducerParser
 from shiinobi.parser.myanimelist.character import CharacterParser
@@ -57,8 +63,11 @@ def version_callback(value: bool):
         raise typer.Exit()
 
 
+# Anime
+
+
 @app.command()
-def get_myanimelist_all_genre(
+def get_myanimelist_all_anime_genres(
     sort: Annotated[Optional[bool], typer.Option()] = False,
 ):
     builder = AnimeAllGenreBuilder()
@@ -67,7 +76,7 @@ def get_myanimelist_all_genre(
 
 
 @app.command()
-def get_myanimelist_demographics(
+def get_myanimelist_anime_demographics(
     sort: Annotated[Optional[bool], typer.Option()] = False,
 ):
     builder = AnimeDemographicsBuilder()
@@ -180,6 +189,72 @@ def get_myanimelist_character_urls(
     print_json(dictionary)
 
 
+@app.command()
+def get_myanimelist_demographics(
+    sort: Annotated[Optional[bool], typer.Option()] = False,
+):
+    builder = AnimeDemographicsBuilder()
+    dictionary = builder.build_dictionary(sort=sort)
+    print_json(dictionary)
+
+
+# Manga
+
+
+@app.command()
+def get_myanimelist_all_manga_genres(
+    sort: Annotated[Optional[bool], typer.Option()] = False,
+):
+    builder = MangaAllGenreBuilder()
+    dictionary = builder.build_dictionary(sort=sort)
+    print_json(dictionary)
+
+
+@app.command()
+def get_myanimelist_manga_demographics(
+    sort: Annotated[Optional[bool], typer.Option()] = False,
+):
+    builder = MangaDemographicsBuilder()
+    dictionary = builder.build_dictionary(sort=sort)
+    print_json(dictionary)
+
+
+@app.command()
+def get_myanimelist_manga_explicit_genres(
+    sort: Annotated[Optional[bool], typer.Option()] = False,
+):
+    builder = MangaExplicitGenreBuilder()
+    dictionary = builder.build_dictionary(sort=sort)
+    print_json(dictionary)
+
+
+@app.command()
+def get_myanimelist_manga_genres(
+    sort: Annotated[Optional[bool], typer.Option()] = False,
+):
+    builder = MangaGenreBuilder()
+    dictionary = builder.build_dictionary(sort=sort)
+    print_json(dictionary)
+
+
+@app.command()
+def get_myanimelist_manga_maganizes(
+    sort: Annotated[Optional[bool], typer.Option()] = False,
+):
+    builder = MangaMaganizeBuilder()
+    dictionary = builder.build_dictionary(sort=sort)
+    print_json(dictionary)
+
+
+@app.command()
+def get_myanimelist_manga_themes(
+    sort: Annotated[Optional[bool], typer.Option()] = False,
+):
+    builder = MangaThemeBuilder()
+    dictionary = builder.build_dictionary(sort=sort)
+    print_json(dictionary)
+
+
 @app.callback()
 def main(
     version: Annotated[
@@ -189,7 +264,7 @@ def main(
             "-v",
             callback=version_callback,
             is_eager=True,
-            help="Print version and exit",
+            help="Prints version and exit",
         ),
     ] = None,
 ): ...
