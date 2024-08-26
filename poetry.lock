@@ -918,13 +918,13 @@ files = [
 
 [[package]]
 name = "shibuya"
-version = "2024.7.13"
+version = "2024.8.21"
 description = "A clean, responsive, and customizable Sphinx documentation theme with light/dark mode."
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "shibuya-2024.7.13-py3-none-any.whl", hash = "sha256:810dde8580d46ce31f3de356fca715d5a2389ecfbfcba653f03086028bb1e5f4"},
-    {file = "shibuya-2024.7.13.tar.gz", hash = "sha256:8fbe547d371e907a55d185b9471dc57c4823cfb344ed7ff7eed1a13c881abd11"},
+    {file = "shibuya-2024.8.21-py3-none-any.whl", hash = "sha256:a53c0ffb4c60dae299f4fba019061d1cbff6788f7b6c9bf28028d190adab9eb3"},
+    {file = "shibuya-2024.8.21.tar.gz", hash = "sha256:d83545062427ab09d205ced71ab8990454c68156b5d2f7616ed0eedf7f831709"},
 ]
 
 [package.dependencies]
@@ -1204,4 +1204,4 @@ test = ["big-O", "importlib-resources", "jaraco.functools", "jaraco.itertools", 
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<3.13"
-content-hash = "6e9bb84a80a4542136b51dadaadd3cfb13f7461249159df3bcfb45b1a9cd9f9e"
+content-hash = "9d0e77427b9917e1c49e2706212f06d445ac84b91e9fedeec5906675dd21bfd8"
