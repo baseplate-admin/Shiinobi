@@ -27,7 +27,7 @@ typer = "^0.12.5"
 sphinx = "^7.2.6"
 myst-parser = ">=2"
 sphinx-reload = "^0.2.0"
-shibuya = "^2024.8.21"
+shibuya = "^2024.8.30"
 
 [tool.poetry.group.dev.dependencies]
 poethepoet = "^0.28.0"
