@@ -21,17 +21,17 @@ python-dateutil = "^2.9.0.post0"
 
 
 [tool.poetry.group.cli.dependencies]
-typer = "^0.12.3"
+typer = "^0.12.5"
 
 [tool.poetry.group.docs.dependencies]
 sphinx = "^7.2.6"
 myst-parser = ">=2"
 sphinx-reload = "^0.2.0"
-shibuya = "^2024.6.1"
+shibuya = "^2024.8.30"
 
 [tool.poetry.group.dev.dependencies]
-poethepoet = "^0.27.0"
-ruff = "^0.5.7"
+poethepoet = "^0.28.0"
+ruff = "^0.6.4"
 pyinstaller = "^6.10.0"
 
 [build-system]
