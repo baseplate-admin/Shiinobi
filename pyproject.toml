@@ -13,7 +13,7 @@ exclude = [
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = ">=3.9,<3.13"
+python = ">=3.9,<3.14"
 selectolax = "^0.3.24"
 requests-cache = "^1.2.1"
 requests-ratelimiter = "^0.7.0"
