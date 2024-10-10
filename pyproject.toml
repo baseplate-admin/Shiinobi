@@ -14,7 +14,7 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.14"
-selectolax = "^0.3.21"
+selectolax = "^0.3.24"
 requests-cache = "^1.2.1"
 requests-ratelimiter = "^0.7.0"
 python-dateutil = "^2.9.0.post0"
@@ -30,8 +30,8 @@ sphinx-reload = "^0.2.0"
 shibuya = "^2024.8.30"
 
 [tool.poetry.group.dev.dependencies]
-poethepoet = "^0.28.0"
-ruff = "^0.6.5"
+poethepoet = "^0.29.0"
+ruff = "^0.6.9"
 pyinstaller = "^6.10.0"
 
 [build-system]
