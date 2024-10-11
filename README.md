@@ -7,7 +7,8 @@
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/Shiinobi?style=flat-square&color=%23B8B8C4)
 ![GitHub License](https://img.shields.io/github/license/baseplate-admin/Shiinobi?style=flat-square&color=%23B8B8C4)
 
-<img src="https://github.com/user-attachments/assets/3af4e30b-901c-46d7-b7de-077b14204392" style="width: 500px; height: auto;">
+<!-- <img src="https://github.com/user-attachments/assets/3af4e30b-901c-46d7-b7de-077b14204392" style="width: 500px; height: auto;"> -->
+<img src="./assets/shiinobi.png" style="width: 500px; height: auto;">
 
 <br>
 <br>
@@ -24,17 +25,20 @@ The API documentation for Shiinobi is available [here](https://shiinobi.readthed
 ## Installation
 
 1. Clone the repository and navigate into dir:
+
 ```bash
 git clone https://github.com/baseplate-admin/Shiinobi.git
 cd Shiinobi
 ```
 
 2. Install dependencies:
+
 ```bash
 poetry install
 ```
 
 3. Build the CLI tool:
+
 ```bash
 poetry run poe build-cli
 ```
@@ -42,12 +46,14 @@ poetry run poe build-cli
 ## Usage
 
 For a list of available commands, use:
+
 ```bash
 poetry run poe dev-cli --help
 # python ./src/shiinobi/cli.py --help
 ```
 
 Run the CLI tool with:
+
 ```bash
 poetry run poe dev-cli <command>
 # python ./src/shiinobi/cli.py <command>
@@ -63,10 +69,10 @@ Shiinobi is primarily used within the [CoreSeeder](https://github.com/coreprojec
 
 ## Contributing
 
- - If you have a suggestion/idea that would make this project better, please create a pull request. All pull requests will be reviewed by us, and adjusted.
-   You can also open a [new issue](https://github.com/baseplate-admin/Shiinobi/issues/new) or help us with an [existing one](https://github.com/baseplate-admin/Shiinobi/issues/).
+-   If you have a suggestion/idea that would make this project better, please create a pull request. All pull requests will be reviewed by us, and adjusted.
+    You can also open a [new issue](https://github.com/baseplate-admin/Shiinobi/issues/new) or help us with an [existing one](https://github.com/baseplate-admin/Shiinobi/issues/).
 
- - Other than that, you can also help the project by giving it a star ⭐ Your help is extremely appreciated :)
+-   Other than that, you can also help the project by giving it a star ⭐ Your help is extremely appreciated :)
 
 ## License
 

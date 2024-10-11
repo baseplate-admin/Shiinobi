@@ -33,6 +33,7 @@ shibuya = "^2024.8.30"
 poethepoet = "^0.29.0"
 ruff = "^0.6.9"
 pyinstaller = "^6.10.0"
+pillow = "^10.4.0"
 
 [build-system]
 requires = ["poetry-core"]
