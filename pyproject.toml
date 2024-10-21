@@ -31,7 +31,7 @@ shibuya = "^2024.8.30"
 
 [tool.poetry.group.dev.dependencies]
 poethepoet = "^0.29.0"
-ruff = "^0.6.9"
+ruff = "^0.7.0"
 pyinstaller = "^6.11.0"
 pillow = "^10.4.0"
 
