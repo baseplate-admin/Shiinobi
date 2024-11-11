@@ -30,7 +30,7 @@ sphinx-reload = "^0.2.0"
 shibuya = "^2024.10.15"
 
 [tool.poetry.group.dev.dependencies]
-poethepoet = "^0.29.0"
+poethepoet = "^0.30.0"
 ruff = "^0.7.3"
 pyinstaller = "^6.11.1"
 pillow = "^11.0.0"
