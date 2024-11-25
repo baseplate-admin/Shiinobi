@@ -1,15 +1,18 @@
-from shiinobi.mixins.client import ClientMixin
-
+import requests
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import sys
+import signal
 
 __all__ = ["NHentaiNumberBuilder"]
 
 
-class NHentaiNumberBuilder(ClientMixin):
+class NHentaiNumberBuilder:
     """The base class for nhentai number builder"""
 
     def __init__(self) -> None:
-        super().__init__()
+        self.client = requests.session()
         self._num_pages = self.__build_page_num()
+        self._interrupted = False
 
     def __build_page_num(self):
         res = self.client.get(
@@ -19,18 +22,53 @@ class NHentaiNumberBuilder(ClientMixin):
         data = res.json()
         return data["num_pages"]
 
-    def __build_ids(self):
+    def fetch_page(self, page):
+        if self._interrupted:
+            return []
+
         url = "https://nhentai.net/api/galleries/search?query=language:english"
+
+        print(f"Fetching page {page}")
+        res = self.client.get(f"{url}&page={page}")
+
+        data = res.json()
+        return [item["id"] for item in data["result"]]
+
+    def __signal_handler(self, signum, frame):
+        """Handle keyboard interrupt gracefully"""
+        self._interrupted = True
+
+    def __build_ids(self):
+        # Register the signal handler
+        original_sigint = signal.signal(signal.SIGINT, self.__signal_handler)
+
         ids = []
 
-        for page in range(1, self._num_pages + 1):
-            res = self.client.get(f"{url}&page={page}")
-            data = res.json()
-            result = data["result"]
-            for item in result:
-                ids.append(item["id"])
+        try:
+            with ThreadPoolExecutor(max_workers=10) as executor:
+                future_to_page = {
+                    executor.submit(self.fetch_page, page): page
+                    for page in range(1, self._num_pages + 1)
+                }
 
-        return ids
+                for future in as_completed(future_to_page):
+                    if self._interrupted:
+                        break
+
+                    try:
+                        page_ids = future.result()
+                        ids.extend(page_ids)
+                    except Exception as e:
+                        print(f"Error fetching page {future_to_page[future]}: {e}")
+
+        except Exception as e:
+            print(f"An error occurred: {e}")
+        finally:
+            # Restore the original signal handler
+            signal.signal(signal.SIGINT, original_sigint)
+
+            if self._interrupted:
+                sys.exit(0)
 
     def build_dictionary(self, sort=False) -> dict[int, str]:
         ids = self.__build_ids()
