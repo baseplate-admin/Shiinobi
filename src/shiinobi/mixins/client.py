@@ -1,3 +1,4 @@
+
 from shiinobi.utilities.session import session
 
 __all__ = ["ClientMixin"]
