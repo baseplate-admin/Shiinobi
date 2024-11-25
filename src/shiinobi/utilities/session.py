@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, cast
 
 from requests import Session
 from requests.adapters import HTTPAdapter
@@ -58,3 +58,4 @@ session = CachedLimiterSession(
 )
 session.mount("http://", adapter)
 session.mount("https://", adapter)
+session = cast(Session, session)
