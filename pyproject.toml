@@ -21,7 +21,7 @@ python-dateutil = "^2.9.0.post0"
 
 
 [tool.poetry.group.cli.dependencies]
-typer = "^0.13.0"
+typer = "^0.13.1"
 
 [tool.poetry.group.docs.dependencies]
 sphinx = "^7.2.6"
