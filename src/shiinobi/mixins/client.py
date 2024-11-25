@@ -1,4 +1,3 @@
-
 from shiinobi.utilities.session import session
 
 __all__ = ["ClientMixin"]
@@ -10,6 +9,6 @@ class ClientMixin:
         - session
     """
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs) -> None:
         # Client
         self.client = session

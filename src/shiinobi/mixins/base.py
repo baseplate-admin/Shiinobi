@@ -5,17 +5,18 @@ from shiinobi.mixins.client import ClientMixin
 from shiinobi.utilities.regex import RegexHelper
 from shiinobi.utilities.string import StringHelper
 
-__all__ = ["BaseClientWithHelperMixinMixin"]
+__all__ = ["BaseClientWithHelperMixin"]
 
 
-class BaseClientWithHelperMixinMixin(ClientMixin):
+class BaseClientWithHelperMixin(ClientMixin):
     """
     Base mixin that includes:
         - RegexHelper
         - StringHelper
     """
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
         # Facades
         self.regex_helper = RegexHelper()
         self.string_helper = StringHelper()
