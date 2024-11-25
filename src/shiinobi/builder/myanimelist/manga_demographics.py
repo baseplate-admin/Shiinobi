@@ -1,9 +1,9 @@
-from shiinobi.mixins.base import BaseClientWithHelper
+from shiinobi.mixins.base import BaseClientWithHelperMixin
 
 __all__ = ["MangaDemographicsBuilder"]
 
 
-class MangaDemographicsBuilder(BaseClientWithHelper):
+class MangaDemographicsBuilder(BaseClientWithHelperMixin):
     """The base class for manga demographics builder"""
 
     def __init__(self) -> None:

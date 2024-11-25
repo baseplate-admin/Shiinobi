@@ -4,7 +4,7 @@ from typing import TypedDict
 from dateutil import parser
 from shiinobi.decorators.return_error_decorator import return_on_error
 
-from shiinobi.mixins.base import BaseClientWithHelper
+from shiinobi.mixins.base import BaseClientWithHelperMixin
 
 __all__ = ["AnimeProducerParser"]
 
@@ -17,7 +17,7 @@ class ProducerDictionary(TypedDict):
     about: str
 
 
-class AnimeProducerParser(BaseClientWithHelper):
+class AnimeProducerParser(BaseClientWithHelperMixin):
     def __init__(self, html: str):
         super().__init__()
 

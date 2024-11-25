@@ -6,7 +6,7 @@ from typing import Any, TypedDict
 from dateutil import parser
 
 from shiinobi.decorators.return_error_decorator import return_on_error
-from shiinobi.mixins.base import BaseClientWithHelper
+from shiinobi.mixins.base import BaseClientWithHelperMixin
 
 __all__ = ["StaffParser"]
 
@@ -27,7 +27,7 @@ class StaffDictionary(TypedDict):
     about: str
 
 
-class StaffParser(BaseClientWithHelper):
+class StaffParser(BaseClientWithHelperMixin):
     def __init__(self, html: str):
         super().__init__()
         self.parser = self.get_parser(html)

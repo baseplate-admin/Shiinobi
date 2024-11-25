@@ -2,12 +2,12 @@ import re
 import xml.etree.ElementTree as ET
 from typing import Set
 
-from shiinobi.mixins.base import BaseClientWithHelper
+from shiinobi.mixins.base import BaseClientWithHelperMixin
 
 __all__ = ["StaffBuilder"]
 
 
-class StaffBuilder(BaseClientWithHelper):
+class StaffBuilder(BaseClientWithHelperMixin):
     """The base class for staff builder"""
 
     def __init__(self) -> None:
