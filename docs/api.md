@@ -104,7 +104,7 @@ This type of classes returns the available entries from the website.
 .. currentmodule:: shiinobi.mixins.base
 
 
-.. autoclass:: BaseClientWithHelper
+.. autoclass:: BaseClientWithHelperMixin
 
 ```
 

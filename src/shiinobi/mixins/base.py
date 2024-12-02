@@ -1,27 +1,25 @@
 from selectolax.parser import HTMLParser
 
+
+from shiinobi.mixins.client import ClientMixin
 from shiinobi.utilities.regex import RegexHelper
-from shiinobi.utilities.session import session
 from shiinobi.utilities.string import StringHelper
 
-__all__ = ["BaseClientWithHelper"]
+__all__ = ["BaseClientWithHelperMixin"]
 
 
-class BaseClientWithHelper:
+class BaseClientWithHelperMixin(ClientMixin):
     """
     Base mixin that includes:
         - RegexHelper
         - StringHelper
-        - session
     """
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
         # Facades
         self.regex_helper = RegexHelper()
         self.string_helper = StringHelper()
-
-        # Client
-        self.client = session
 
     @staticmethod
     def get_parser(html: str) -> HTMLParser:
