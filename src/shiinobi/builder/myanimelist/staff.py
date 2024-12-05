@@ -28,7 +28,9 @@ class StaffBuilder(MyAnimeListClientWithHelper):
             for element in sitemap
             if "loc" in element.tag and pattern.search(element.text)
         ]
-
+        self.logger.debug(
+            f"Building {len(urls)} URL information for `{self.__class__.__name__}`"
+        )
         return set(urls)
 
     def build_dictionary(
