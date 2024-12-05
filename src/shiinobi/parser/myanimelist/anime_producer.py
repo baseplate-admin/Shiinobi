@@ -1,5 +1,5 @@
+from dataclasses import dataclass, asdict
 import datetime
-from typing import TypedDict
 
 from dateutil import parser
 from shiinobi.decorators.return_error_decorator import return_on_error
@@ -9,7 +9,8 @@ from shiinobi.mixins.myanimelist import MyAnimeListClientWithHelper
 __all__ = ["AnimeProducerParser"]
 
 
-class ProducerDictionary(TypedDict):
+@dataclass(frozen=True)
+class ProducerDictionary:
     mal_id: str
     name: str
     name_japanese: str
@@ -68,13 +69,13 @@ class AnimeProducerParser(MyAnimeListClientWithHelper):
         cleaned_text = self.regex_helper.remove_multiple_newline(text)
         return cleaned_text
 
-    def build_dictionary(self) -> ProducerDictionary:
-        dictionary: ProducerDictionary = {
-            "mal_id": self.get_producer_id,
-            "name": self.get_producer_name,
-            "name_japanese": self.get_producer_japanese_name,
-            "synonyms": self.get_producer_synonym,
-            "established": self.get_producter_establish_date,
-            "about": self.get_producer_about,
-        }
-        return dictionary
+    def build_dictionary(self) -> dict[str, str | datetime.datetime]:
+        dictionary = ProducerDictionary(
+            self.get_producer_id,
+            self.get_producer_name,
+            self.get_producer_japanese_name,
+            self.get_producer_synonym,
+            self.get_producter_establish_date,
+            self.get_producer_about,
+        )
+        return asdict(dictionary)

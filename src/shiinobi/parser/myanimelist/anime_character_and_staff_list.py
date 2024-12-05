@@ -1,5 +1,4 @@
 from dataclasses import dataclass, asdict
-
 from shiinobi.decorators.return_error_decorator import return_on_error
 from shiinobi.mixins.myanimelist import MyAnimeListClientWithHelper
 
@@ -17,9 +16,8 @@ class AnimeCharacterAndStaffListParser(MyAnimeListClientWithHelper):
         super().__init__()
         self.parser = self.get_parser(html)
 
-    @property
     @return_on_error([])
-    def get_characters(self) -> list[int]:
+    def get_characters(self):
         anchor_tags = self.parser.css("a[href*='/character/']")
         characters = sorted(
             {
@@ -33,9 +31,8 @@ class AnimeCharacterAndStaffListParser(MyAnimeListClientWithHelper):
 
         return list(characters)
 
-    @property
     @return_on_error([])
-    def get_staffs(self) -> list[int]:
+    def get_staffs(self):
         anchor_tags = self.parser.css("a[href*='/people/']")
         staffs = sorted(
             {
@@ -51,7 +48,7 @@ class AnimeCharacterAndStaffListParser(MyAnimeListClientWithHelper):
 
     def build_dictionary(self) -> dict[str, list[int]]:
         dictionary = AnimeCharacterAndStaffListDictionary(
-            self.get_characters,
-            self.get_staffs,
+            self.get_characters(),
+            self.get_staffs(),
         )
         return asdict(dictionary)
