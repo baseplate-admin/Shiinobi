@@ -4,11 +4,17 @@ from datetime import datetime
 from io import BytesIO
 from typing import Literal, Optional
 
+import logging
+import requests
 import typer
 from typing_extensions import Annotated
 
 from shiinobi import __version__
+from shiinobi.utilities.logger import get_logger
 
+## Bulders
+# Anime
+from shiinobi.builder.myanimelist.anime_all_genres import AnimeAllGenreBuilder
 from shiinobi.builder.myanimelist.anime import AnimeBuilder
 from shiinobi.builder.myanimelist.anime_demographics import AnimeDemographicsBuilder
 from shiinobi.builder.myanimelist.anime_explicit_genres import AnimeExplicitGenreBuilder
@@ -16,10 +22,8 @@ from shiinobi.builder.myanimelist.anime_genres import AnimeGenreBuilder
 from shiinobi.builder.myanimelist.anime_theme import AnimeThemeBuilder
 from shiinobi.builder.myanimelist.character import CharacterBuilder
 from shiinobi.builder.myanimelist.staff import StaffBuilder
-from shiinobi.parser.myanimelist.anime import AnimeParser
-from shiinobi.parser.myanimelist.anime_character_and_staff_list import (
-    AnimeCharacterAndStaffListParser,
-)
+
+# Manga
 from shiinobi.builder.myanimelist.manga_all_genres import MangaAllGenreBuilder
 from shiinobi.builder.myanimelist.manga_demographics import MangaDemographicsBuilder
 from shiinobi.builder.myanimelist.manga_explicit_genres import MangaExplicitGenreBuilder
@@ -27,14 +31,19 @@ from shiinobi.builder.myanimelist.manga_genres import MangaGenreBuilder
 from shiinobi.builder.myanimelist.manga_maganize import MangaMaganizeBuilder
 from shiinobi.builder.myanimelist.manga_theme import MangaThemeBuilder
 
-from shiinobi.builder.myanimelist.anime_all_genres import AnimeAllGenreBuilder
+## Parsers
+# Anime
+from shiinobi.parser.myanimelist.anime import AnimeParser
+from shiinobi.parser.myanimelist.anime_character_and_staff_list import (
+    AnimeCharacterAndStaffListParser,
+)
 from shiinobi.parser.myanimelist.anime_genre import AnimeGenreParser
 from shiinobi.parser.myanimelist.anime_producer import AnimeProducerParser
 from shiinobi.parser.myanimelist.character import CharacterParser
 from shiinobi.parser.myanimelist.staff import StaffParser
-from shiinobi.utilities.session import session
 
 app = typer.Typer()
+session = requests.Session()
 
 
 def custom_serializer(obj):
@@ -57,10 +66,57 @@ def get_myanimelist_session_given_key_and_id(
     return session.get(f"https://myanimelist.net/{key}/{mal_id}")
 
 
+def verbose_debug_callback(value: bool):
+    if value:
+        logging.basicConfig(level=logging.DEBUG)
+
+
+def debug_callback(value: bool):
+    if value:
+        logger = get_logger()
+        logger.setLevel(logging.DEBUG)
+        logger.addHandler(logging.StreamHandler())
+
+
 def version_callback(value: bool):
     if value:
         typer.echo(__version__)
         raise typer.Exit()
+
+
+@app.callback()
+def main(
+    version: Annotated[
+        Optional[bool],
+        typer.Option(
+            "--version",
+            "-v",
+            callback=version_callback,
+            is_eager=True,
+            help="Prints version and exit",
+        ),
+    ] = None,
+    debug: Annotated[
+        Optional[bool],
+        typer.Option(
+            "--debug",
+            "-d",
+            callback=debug_callback,
+            is_eager=True,
+            help="Runs `shiinobi` with debug log",
+        ),
+    ] = None,
+    verbose_debug: Annotated[
+        Optional[bool],
+        typer.Option(
+            "--verbose-debug",
+            "-vd",
+            callback=verbose_debug_callback,
+            is_eager=True,
+            help="Runs every module under `shiinobi` with debug log",
+        ),
+    ] = None,
+): ...
 
 
 # Anime
@@ -253,21 +309,6 @@ def get_myanimelist_manga_themes(
     builder = MangaThemeBuilder()
     dictionary = builder.build_dictionary(sort=sort)
     print_json(dictionary)
-
-
-@app.callback()
-def main(
-    version: Annotated[
-        Optional[bool],
-        typer.Option(
-            "--version",
-            "-v",
-            callback=version_callback,
-            is_eager=True,
-            help="Prints version and exit",
-        ),
-    ] = None,
-): ...
 
 
 if __name__ == "__main__":
