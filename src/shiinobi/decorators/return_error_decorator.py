@@ -1,5 +1,5 @@
 import functools
-from typing import Callable, ParamSpec, TypeVar, no_type_check
+from typing import Callable, ParamSpec, TypeVar
 from shiinobi.utilities.logger import get_logger
 
 __all__ = ["return_on_error"]
@@ -24,7 +24,7 @@ def return_on_error(return_type: T) -> Callable[[Callable[P, T]], Callable[P, T]
         @functools.wraps(func)
         def wrapper(*args: P.args, **kwargs: P.kwargs) -> T:
             try:
-                return no_type_check(func)(*args, **kwargs)
+                return func(*args, **kwargs)
             except (AttributeError, IndexError, ValueError) as e:
                 func_name = func.__name__
                 args_repr = ", ".join(repr(arg) for arg in args)

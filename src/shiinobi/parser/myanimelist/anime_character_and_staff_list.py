@@ -1,6 +1,7 @@
 from dataclasses import dataclass, asdict
 from shiinobi.decorators.return_error_decorator import return_on_error
 from shiinobi.mixins.myanimelist import MyAnimeListClientWithHelper
+from typing import no_type_check
 
 __all__ = ["AnimeCharacterAndStaffListParser"]
 
@@ -16,6 +17,7 @@ class AnimeCharacterAndStaffListParser(MyAnimeListClientWithHelper):
         super().__init__()
         self.parser = self.get_parser(html)
 
+    @no_type_check
     @return_on_error([])
     def get_characters(self):
         anchor_tags = self.parser.css("a[href*='/character/']")
@@ -31,6 +33,7 @@ class AnimeCharacterAndStaffListParser(MyAnimeListClientWithHelper):
 
         return list(characters)
 
+    @no_type_check
     @return_on_error([])
     def get_staffs(self):
         anchor_tags = self.parser.css("a[href*='/people/']")

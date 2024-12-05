@@ -1,5 +1,5 @@
 from dataclasses import dataclass, asdict
-
+from typing import no_type_check
 from shiinobi.decorators.return_error_decorator import return_on_error
 from shiinobi.mixins.myanimelist import MyAnimeListClientWithHelper
 
@@ -21,12 +21,14 @@ class AnimeGenreParser(MyAnimeListClientWithHelper):
         self.parser = self.get_parser(html)
 
     @property
+    @no_type_check
     @return_on_error("")
     def get_url(self):
         self.logger.debug(f"Parsed `url` information for `{self.__class__.__name__}`")
         return self.parser.css_first('meta[property="og:url"]').attributes["content"]
 
     @property
+    @no_type_check
     @return_on_error("")
     def get_mal_id(self):
         mal_id = self.regex_helper.get_id_from_url(self.get_url)
@@ -36,6 +38,7 @@ class AnimeGenreParser(MyAnimeListClientWithHelper):
         return mal_id
 
     @property
+    @no_type_check
     @return_on_error("")
     def get_name(self):
         html = self.parser.css_first("span.di-ib.mt4")
@@ -49,6 +52,7 @@ class AnimeGenreParser(MyAnimeListClientWithHelper):
         return self.string_helper.cleanse(actual_text)
 
     @property
+    @no_type_check
     @return_on_error("")
     def get_description(self):
         text = self.parser.css_first("p.genre-description").text()
@@ -62,6 +66,7 @@ class AnimeGenreParser(MyAnimeListClientWithHelper):
         return cleaned_text
 
     @property
+    @no_type_check
     @return_on_error("")
     def get_type(self):
         text = self.parser.css("div.di-ib")
