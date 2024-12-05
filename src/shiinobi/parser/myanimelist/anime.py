@@ -4,7 +4,7 @@ from functools import lru_cache
 from dataclasses import dataclass, asdict
 from dateutil import parser
 
-from selectolax import Node
+from selectolax.parser import Node
 from shiinobi.decorators.return_error_decorator import return_on_error
 from shiinobi.mixins.myanimelist import MyAnimeListClientWithHelper
 
@@ -107,7 +107,6 @@ class AnimeParser(MyAnimeListClientWithHelper):
 
     @property
     @return_on_error("")
-    @no_type_check
     def get_source(self):
         node = self.parser.select("span").text_contains("Source:").matches
         if len(node) > 1:
@@ -118,7 +117,6 @@ class AnimeParser(MyAnimeListClientWithHelper):
 
     @property
     @return_on_error("")
-    @no_type_check
     @lru_cache(maxsize=None)
     def __get_aired_text(self):
         # aired text contains in this format
@@ -131,25 +129,22 @@ class AnimeParser(MyAnimeListClientWithHelper):
 
     @property
     @return_on_error("")
-    @no_type_check
-    def get_aired_from(self) -> datetime.datetime:
+    def get_aired_from(self):
         aired_text = self.__get_aired_text
         splitted_text = aired_text.split("to")
         aired_from = parser.parse(self.string_helper.cleanse(splitted_text[0]))
-        return aired_from
+        return aired_from.isoformat()
 
     @property
     @return_on_error("")
-    @no_type_check
-    def get_aired_to(self) -> datetime.datetime:
+    def get_aired_to(self):
         aired_text = self.__get_aired_text
         splitted_text = aired_text.split("to")
         aired_to = parser.parse(self.string_helper.cleanse(splitted_text[1]))
-        return aired_to
+        return aired_to.isoformat()
 
     @property
     @return_on_error("")
-    @no_type_check
     def get_synopsis(self):
         node = self.parser.css_first("p[itemprop='description']")
 
@@ -162,7 +157,6 @@ class AnimeParser(MyAnimeListClientWithHelper):
 
     @property
     @return_on_error("")
-    @no_type_check
     def get_background(self):
         node = self.parser.select("h2").text_contains("Background").matches
         if len(node) > 1:
@@ -176,7 +170,6 @@ class AnimeParser(MyAnimeListClientWithHelper):
 
     @property
     @return_on_error("")
-    @no_type_check
     def get_rating(self):
         node = self.parser.select("span").text_contains("Rating:").matches
         if len(node) > 1:
@@ -187,8 +180,7 @@ class AnimeParser(MyAnimeListClientWithHelper):
 
     @property
     @return_on_error([])
-    @no_type_check
-    def get_genres(self) -> list[int]:
+    def get_genres(self):
         node = self.parser.select("span").text_contains("Genres:").matches
         if len(node) > 1:
             raise ValueError("There are multiple Genre node")
@@ -206,8 +198,7 @@ class AnimeParser(MyAnimeListClientWithHelper):
 
     @property
     @return_on_error([])
-    @no_type_check
-    def get_themes(self) -> list[int]:
+    def get_themes(self):
         node = self.parser.select("span").text_contains("Themes:").matches
         if len(node) > 1:
             raise ValueError("There are multiple Genre node")
@@ -224,8 +215,7 @@ class AnimeParser(MyAnimeListClientWithHelper):
 
     @property
     @return_on_error([])
-    @no_type_check
-    def get_studios(self) -> list[int]:
+    def get_studios(self):
         node = self.parser.select("span").text_contains("Studios:").matches
         if len(node) > 1:
             raise ValueError("There are multiple Studio node")
@@ -241,8 +231,7 @@ class AnimeParser(MyAnimeListClientWithHelper):
 
     @property
     @return_on_error([])
-    @no_type_check
-    def get_producers(self) -> list[int]:
+    def get_producers(self):
         node = self.parser.select("span").text_contains("Producers:").matches
         if len(node) > 1:
             raise ValueError("There are multiple Producer node")
@@ -258,8 +247,7 @@ class AnimeParser(MyAnimeListClientWithHelper):
 
     @property
     @return_on_error([])
-    @no_type_check
-    def get_demographics(self) -> list[int]:
+    def get_demographics(self):
         node = self.parser.select("span").text_contains("Demographic:").matches
         if len(node) > 1:
             raise ValueError("There are multiple Demographic node")
@@ -275,8 +263,7 @@ class AnimeParser(MyAnimeListClientWithHelper):
 
     @property
     @return_on_error({})
-    @no_type_check
-    def get_openings(self) -> dict[int, str]:
+    def get_openings(self):
         node = self.parser.select("h2").text_contains("Opening Theme").matches
 
         opening_table_tag = node[0].parent.next.next
@@ -302,8 +289,7 @@ class AnimeParser(MyAnimeListClientWithHelper):
 
     @property
     @return_on_error({})
-    @no_type_check
-    def get_endings(self) -> dict[int, str]:
+    def get_endings(self):
         node = self.parser.select("h2").text_contains("Ending Theme").matches
 
         endings_table_tag = node[0].parent.next.next
