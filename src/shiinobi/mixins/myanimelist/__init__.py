@@ -15,6 +15,7 @@ class MyAnimeListClientWithHelper:
         - RegexHelper
         - StringHelper
         - client
+        - logger
     """
 
     def __init__(self):

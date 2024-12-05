@@ -32,7 +32,7 @@ class AnimeAllGenreBuilder(MyAnimeListClientWithHelper):
             if anchor.attributes["href"]
         ]
         self.logger.debug(
-            f"Building {len(self.anchors)} Anchor information for {self.__class__.__name__}"
+            f"Building {len(self.anchors)} Anchor information for `{self.__class__.__name__}`"
         )
         return self.anchors
 
