@@ -42,6 +42,7 @@ from shiinobi.parser.myanimelist.anime_producer import AnimeProducerParser
 from shiinobi.parser.myanimelist.character import CharacterParser
 from shiinobi.parser.myanimelist.staff import StaffParser
 
+
 app = typer.Typer()
 session = requests.Session()
 
