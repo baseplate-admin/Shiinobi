@@ -1,10 +1,10 @@
 import datetime
 from functools import lru_cache
-from typing import no_type_check
 
 from dataclasses import dataclass, asdict
 from dateutil import parser
 
+from selectolax import Node
 from shiinobi.decorators.return_error_decorator import return_on_error
 from shiinobi.mixins.myanimelist import MyAnimeListClientWithHelper
 
@@ -40,8 +40,7 @@ class AnimeParser(MyAnimeListClientWithHelper):
 
     @property
     @return_on_error("")
-    @no_type_check
-    def get_anime_url(self) -> str:
+    def get_anime_url(self):
         if anime_url := self.parser.css_first("meta[property='og:url']").attributes[
             "content"
         ]:
@@ -51,8 +50,7 @@ class AnimeParser(MyAnimeListClientWithHelper):
 
     @property
     @return_on_error("")
-    @no_type_check
-    def get_anime_id(self) -> str:
+    def get_anime_id(self):
         if anime_id := self.regex_helper.get_id_from_url(self.get_anime_url):
             return str(anime_id)
         else:
@@ -60,8 +58,7 @@ class AnimeParser(MyAnimeListClientWithHelper):
 
     @property
     @return_on_error("")
-    @no_type_check
-    def get_anime_name(self) -> str:
+    def get_anime_name(self):
         if anime_name := self.parser.css_first("meta[property='og:title']").attributes[
             "content"
         ]:
@@ -71,8 +68,7 @@ class AnimeParser(MyAnimeListClientWithHelper):
 
     @property
     @return_on_error("")
-    @no_type_check
-    def get_anime_name_japanese(self) -> str:
+    def get_anime_name_japanese(self):
         node = self.parser.select("span").text_contains("Japanese:").matches
         if len(node) > 1:
             raise ValueError("There are more than one node in name japanese node")
@@ -82,12 +78,11 @@ class AnimeParser(MyAnimeListClientWithHelper):
 
     @property
     @return_on_error([])
-    @no_type_check
-    def get_anime_name_synonyms(self) -> list[str]:
+    def get_anime_name_synonyms(self):
         node = self.parser.select("h2").text_contains("Alternative Titles").matches[0]
         alternate_names = []
 
-        next_node: Node
+        next_node: Node = None
 
         while True:
             if node.next.tag == "h2":
@@ -113,7 +108,7 @@ class AnimeParser(MyAnimeListClientWithHelper):
     @property
     @return_on_error("")
     @no_type_check
-    def get_source(self) -> str:
+    def get_source(self):
         node = self.parser.select("span").text_contains("Source:").matches
         if len(node) > 1:
             raise ValueError("There are multiple source node")
@@ -155,7 +150,7 @@ class AnimeParser(MyAnimeListClientWithHelper):
     @property
     @return_on_error("")
     @no_type_check
-    def get_synopsis(self) -> str:
+    def get_synopsis(self):
         node = self.parser.css_first("p[itemprop='description']")
 
         synopsis = self.string_helper.cleanse(node.text())
@@ -168,7 +163,7 @@ class AnimeParser(MyAnimeListClientWithHelper):
     @property
     @return_on_error("")
     @no_type_check
-    def get_background(self) -> str:
+    def get_background(self):
         node = self.parser.select("h2").text_contains("Background").matches
         if len(node) > 1:
             raise ValueError("There are multiple Background node")
@@ -182,7 +177,7 @@ class AnimeParser(MyAnimeListClientWithHelper):
     @property
     @return_on_error("")
     @no_type_check
-    def get_rating(self) -> str:
+    def get_rating(self):
         node = self.parser.select("span").text_contains("Rating:").matches
         if len(node) > 1:
             raise ValueError("There are multiple Rating node")
@@ -349,7 +344,7 @@ class AnimeParser(MyAnimeListClientWithHelper):
             self.get_studios,
             self.get_producers,
             self.get_demographics,
-            [],  # self
+            [],  # self.recommendations
             self.get_openings,
             self.get_endings,
         )
