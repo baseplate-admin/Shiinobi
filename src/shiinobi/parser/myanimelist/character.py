@@ -5,7 +5,7 @@ from io import BytesIO
 from typing import TypedDict
 
 from shiinobi.decorators.return_error_decorator import return_on_error
-from shiinobi.mixins.base import BaseClientWithHelper
+from shiinobi.mixins.myanimelist import MyAnimeListClientWithHelper
 
 __all__ = ["CharacterParser"]
 
@@ -23,7 +23,7 @@ class CharacterDictionary(TypedDict):
     about: str
 
 
-class CharacterParser(BaseClientWithHelper):
+class CharacterParser(MyAnimeListClientWithHelper):
     def __init__(self, html: str):
         super().__init__()
 

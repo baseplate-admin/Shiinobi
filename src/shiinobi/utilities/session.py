@@ -8,7 +8,16 @@ from requests_cache import CacheMixin, SQLiteCache
 from requests_ratelimiter import LimiterMixin, SQLiteBucket
 from urllib3.util import Retry
 
-__all__ = ["session"]
+__all__ = ["get_session"]
+
+RETRY_STATUSES = [403, 429]
+
+retry_strategy = Retry(
+    total=15,
+    backoff_factor=2,
+    status_forcelist=RETRY_STATUSES,
+)
+adapter = HTTPAdapter(max_retries=retry_strategy)
 
 
 class CachedLimiterSession(CacheMixin, LimiterMixin, Session):
@@ -35,27 +44,18 @@ class CachedLimiterSession(CacheMixin, LimiterMixin, Session):
         )
 
 
-RETRY_STATUSES = [403, 429]
+def get_session(per_minute=0.0, per_second=0.0, per_host=False):
+    session = CachedLimiterSession(
+        bucket_class=SQLiteBucket,
+        cache_name="http_cache",
+        backend=SQLiteCache(),
+        per_minute=per_minute,
+        per_second=per_second,
+        per_host=per_host,
+        expire_after=360,
+    )
+    session.mount("http://", adapter)
+    session.mount("https://", adapter)
+    session = cast(Session, session)
 
-retry_strategy = Retry(
-    total=15,
-    backoff_factor=2,
-    status_forcelist=RETRY_STATUSES,
-)
-adapter = HTTPAdapter(max_retries=retry_strategy)
-
-
-session = CachedLimiterSession(
-    bucket_class=SQLiteBucket,
-    cache_name="http_cache",
-    backend=SQLiteCache(),
-    # https://docs.api.jikan.moe/#section/Information/Rate-Limiting
-    per_minute=100,
-    # per_second=1,
-    per_host=True,
-    # https://requests-cache.readthedocs.io/en/stable/user_guide/expiration.html
-    expire_after=360,
-)
-session.mount("http://", adapter)
-session.mount("https://", adapter)
-session = cast(Session, session)
+    return session
