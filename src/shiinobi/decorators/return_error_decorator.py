@@ -19,7 +19,7 @@ def return_on_error[T](return_type: T) -> Callable[[Callable], T]:
         def wrapper(*args: Any, **kwargs: Any) -> T:
             try:
                 return func(*args, **kwargs)
-            except (AttributeError, IndexError) as e:
+            except (AttributeError, IndexError, ValueError) as e:
                 func_name = func.__name__
                 args_repr = ", ".join(repr(arg) for arg in args)
                 kwargs_repr = ", ".join(f"{k}={v!r}" for k, v in kwargs.items())

@@ -35,7 +35,6 @@ class AnimeDictionary(TypedDict):
 class AnimeParser(MyAnimeListClientWithHelper):
     def __init__(self, html: str) -> None:
         super().__init__()
-
         self.parser = self.get_parser(html)
 
     @property
@@ -43,7 +42,7 @@ class AnimeParser(MyAnimeListClientWithHelper):
     @lru_cache(maxsize=None)
     def __get_aired_text(self):
         # aired text contains in this format
-        # 'aired_from to aired_to'
+        # '<aired_from> to <aired_to>'
         node = self.parser.select("span").text_contains("Aired:").matches
         if len(node) > 1:
             raise ValueError("There are multiple aired node")

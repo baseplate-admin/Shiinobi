@@ -40,4 +40,4 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poe.tasks]
 "dev-cli" = "python ./src/shiinobi/cli.py"
-"build-cli" = "pyinstaller ./cli.spec"
+"build-cli" = "pyinstaller ./cli.spec --clean"
