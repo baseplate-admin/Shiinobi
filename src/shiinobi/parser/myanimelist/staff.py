@@ -35,7 +35,10 @@ class StaffParser(MyAnimeListClientWithHelper):
     @property
     @return_on_error("")
     def get_staff_url(self) -> str:
-        return self.parser.css_first("meta[property='og:url']").attributes["content"]
+        url = self.parser.css_first("meta[property='og:url']").attributes["content"]
+        if not url:
+            raise ValueError("There are no urls")
+        return url
 
     @property
     @return_on_error("")
@@ -52,6 +55,7 @@ class StaffParser(MyAnimeListClientWithHelper):
                 "image": BytesIO(res.content),
                 "mimetype": url.split(".")[-1],
             }
+        return {}
 
     @property
     @return_on_error("")

@@ -1,19 +1,18 @@
-import datetime
-from typing import TypedDict
-
-from dateutil import parser
+from dataclasses import dataclass, asdict
+import dateutil
 from shiinobi.decorators.return_error_decorator import return_on_error
-
 from shiinobi.mixins.myanimelist import MyAnimeListClientWithHelper
 
 __all__ = ["AnimeProducerParser"]
 
 
-class ProducerDictionary(TypedDict):
+@dataclass(frozen=True)
+class ProducerDictionary:
     mal_id: str
     name: str
     name_japanese: str
-    established: datetime.datetime
+    synonym: str
+    established: str
     about: str
 
 
@@ -30,51 +29,51 @@ class AnimeProducerParser(MyAnimeListClientWithHelper):
 
     @property
     @return_on_error("")
-    def get_producer_id(self) -> str:
+    def get_producer_id(self):
         return self.regex_helper.get_id_from_url(self.get_producer_url)
 
     @property
     @return_on_error("")
-    def get_producer_name(self) -> str:
+    def get_producer_name(self):
         node = self.parser.css_first(".title-name")
         return self.string_helper.cleanse(node.text())
 
     @property
     @return_on_error("")
-    def get_producer_japanese_name(self) -> str:
+    def get_producer_japanese_name(self):
         node = self.parser.select("span").text_contains("Japanese:")
         return self.string_helper.cleanse(node.matches[0].next.text())
 
     @property
     @return_on_error("")
-    def get_producer_synonym(self) -> str:
+    def get_producer_synonym(self):
         node = self.parser.select("span").text_contains("Synonyms:")
         return self.string_helper.cleanse(node.matches[0].next.text())
 
     @property
     @return_on_error("")
-    def get_producter_establish_date(self) -> datetime.datetime:
+    def get_producter_establish_date(self):
         node = self.parser.select("span").text_contains("Established:")
         string_date = self.string_helper.cleanse(node.matches[0].next.text())
-        actual_date = parser.parse(string_date)
-        return actual_date
+        actual_date = dateutil.parser.parse(string_date)
+        return actual_date.isoformat()
 
     @property
     @return_on_error("")
-    def get_producer_about(self) -> str:
+    def get_producer_about(self):
         text = self.parser.css_first(
             "#content > div:nth-of-type(1) div.spaceit_pad > span:not(.dark_text)"
         ).text()
         cleaned_text = self.regex_helper.remove_multiple_newline(text)
         return cleaned_text
 
-    def build_dictionary(self) -> ProducerDictionary:
-        dictionary: ProducerDictionary = {
-            "mal_id": self.get_producer_id,
-            "name": self.get_producer_name,
-            "name_japanese": self.get_producer_japanese_name,
-            "synonyms": self.get_producer_synonym,
-            "established": self.get_producter_establish_date,
-            "about": self.get_producer_about,
-        }
-        return dictionary
+    def build_dictionary(self) -> dict[str, str]:
+        dictionary = ProducerDictionary(
+            self.get_producer_id,
+            self.get_producer_name,
+            self.get_producer_japanese_name,
+            self.get_producer_synonym,
+            self.get_producter_establish_date,
+            self.get_producer_about,
+        )
+        return asdict(dictionary)

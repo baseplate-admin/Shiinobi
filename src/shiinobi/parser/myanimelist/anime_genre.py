@@ -1,6 +1,4 @@
 from dataclasses import dataclass, asdict
-from typing import TypedDict
-
 from shiinobi.decorators.return_error_decorator import return_on_error
 from shiinobi.mixins.myanimelist import MyAnimeListClientWithHelper
 
@@ -8,8 +6,8 @@ __all__ = ["AnimeGenreParser"]
 
 
 @dataclass(frozen=True)
-class GenreDictionary(TypedDict):
-    mal_id: int
+class GenreDictionary:
+    mal_id: str
     name: str
     description: str
     type: str
@@ -18,26 +16,26 @@ class GenreDictionary(TypedDict):
 class AnimeGenreParser(MyAnimeListClientWithHelper):
     def __init__(self, html: str):
         super().__init__()
-
         self.parser = self.get_parser(html)
 
     @property
     @return_on_error("")
-    def get_url(self) -> str:
+    def get_url(self):
         self.logger.debug(f"Parsed `url` information for `{self.__class__.__name__}`")
         return self.parser.css_first('meta[property="og:url"]').attributes["content"]
 
     @property
     @return_on_error("")
-    def get_mal_id(self) -> int:
+    def get_mal_id(self):
+        mal_id = self.regex_helper.get_id_from_url(self.get_url)
         self.logger.debug(
             f"Parsed `mal_id` information for `{self.__class__.__name__}`"
         )
-        return self.regex_helper.get_id_from_url(self.get_url)
+        return mal_id
 
     @property
     @return_on_error("")
-    def get_name(self) -> str:
+    def get_name(self):
         html = self.parser.css_first("span.di-ib.mt4")
 
         # Remove span nodes
@@ -50,7 +48,7 @@ class AnimeGenreParser(MyAnimeListClientWithHelper):
 
     @property
     @return_on_error("")
-    def get_description(self) -> str:
+    def get_description(self):
         text = self.parser.css_first("p.genre-description").text()
         cleaned_text = self.regex_helper.replace_br_with_newline(
             self.regex_helper.remove_multiple_newline(text)
@@ -63,7 +61,7 @@ class AnimeGenreParser(MyAnimeListClientWithHelper):
 
     @property
     @return_on_error("")
-    def get_type(self) -> str:
+    def get_type(self):
         text = self.parser.css("div.di-ib")
         # The second node actually shows the item
         actual_node = text[1]
