@@ -29,7 +29,7 @@ shibuya = "^2024.10.15"
 
 [tool.poetry.group.dev.dependencies]
 poethepoet = "^0.31.1"
-ruff = "^0.8.1"
+ruff = "^0.8.2"
 pyinstaller = "^6.11.1"
 # Pillow is used for `.png` to `.ico` convertion
 pillow = "^11.0.0"
