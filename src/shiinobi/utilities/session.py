@@ -1,5 +1,4 @@
-from typing import Any, cast
-
+from typing import Any
 from requests import Session
 from requests.adapters import HTTPAdapter
 from requests.structures import CaseInsensitiveDict
@@ -56,6 +55,4 @@ def get_session(per_minute=0.0, per_second=0.0, per_host=False):
     )
     session.mount("http://", adapter)
     session.mount("https://", adapter)
-    session = cast(Session, session)
-
     return session

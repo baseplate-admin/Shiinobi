@@ -10,10 +10,8 @@ __all__ = ["StaffBuilder"]
 class StaffBuilder(MyAnimeListClientWithHelper):
     """The base class for staff builder"""
 
-    def __init__(self) -> None:
-        super().__init__()
-        # Urls
-        self.urls_to_visit = self.__build_urls_to_visit()
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
 
     def __build_urls_to_visit(self) -> Set[int]:
         url = "https://myanimelist.net/sitemap/index.xml"
@@ -37,8 +35,9 @@ class StaffBuilder(MyAnimeListClientWithHelper):
         self, excluded_ids: list[int] | None = None, sort: bool = False
     ) -> dict[int, str]:
         dictionary = {}
+        urls_to_visit = self.__build_urls_to_visit()
 
-        for url in self.urls_to_visit:
+        for url in urls_to_visit:
             res = self.client.get(url)
             tree = ET.fromstring(res.content)
 

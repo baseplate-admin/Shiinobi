@@ -1,5 +1,5 @@
 import functools
-from typing import Callable, ParamSpec, TypeVar
+from typing import Callable, ParamSpec
 from shiinobi.utilities.logger import get_logger
 
 __all__ = ["return_on_error"]
@@ -7,10 +7,9 @@ __all__ = ["return_on_error"]
 logger = get_logger()
 
 P = ParamSpec("P")
-T = TypeVar("T")
 
 
-def return_on_error(return_type: T) -> Callable[[Callable[P, T]], Callable[P, T]]:
+def return_on_error[T](return_type: T) -> Callable[[Callable[P, T]], Callable[P, T]]:
     """
     Decorator to handle specific exceptions by returning a default value.
 

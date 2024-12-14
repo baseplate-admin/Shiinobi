@@ -6,16 +6,13 @@ __all__ = ["AnimeDemographicsBuilder"]
 class AnimeDemographicsBuilder(MyAnimeListClientWithHelper):
     """The base class for anime demographics builder"""
 
-    def __init__(self) -> None:
-        super().__init__()
-        self.anchors: list[str] = []
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
 
-    def __build_ids(self) -> list[int]:
-        ids = [
-            self.regex_helper.get_first_integer_from_url(item) for item in self.anchors
-        ]
+    def __build_ids(self, anchors: list[str]) -> list[int]:
+        ids = [self.regex_helper.get_first_integer_from_url(item) for item in anchors]
         self.logger.debug(
-            f"Building {len(ids)} ID information for `{self.__class__.__name__}` where anchor length is {len(self.anchors)}"
+            f"Building {len(ids)} ID information for `{self.__class__.__name__}` where anchor length is {len(anchors)}"
         )
 
         return ids
@@ -30,7 +27,7 @@ class AnimeDemographicsBuilder(MyAnimeListClientWithHelper):
         )
         theme_anchor_nodes = theme_parent_node.css('a[href*="genre"]')
 
-        self.anchors = [
+        anchors = [
             self.string_helper.add_myanimelist_if_not_already_there(
                 anchor.attributes["href"]
             )
@@ -38,16 +35,16 @@ class AnimeDemographicsBuilder(MyAnimeListClientWithHelper):
             if anchor.attributes["href"]
         ]
         self.logger.debug(
-            f"Building {len(self.anchors)} Anchor information for `{self.__class__.__name__}`"
+            f"Building {len(anchors)} Anchor information for `{self.__class__.__name__}`"
         )
-        return self.anchors
+        return anchors
 
     def build_dictionary(self, sort=False) -> dict[int, str]:
         res = self.client.get("https://myanimelist.net/anime.php")
         html = res.text
 
         urls = self.__build_urls(html)
-        ids = self.__build_ids()
+        ids = self.__build_ids(urls)
 
         dictionary = dict(zip(ids, urls))
 
