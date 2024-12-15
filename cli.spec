@@ -10,7 +10,7 @@ a = Analysis(
     hookspath=['./src/_pyinstaller'],
     hooksconfig={},
     runtime_hooks=[],
-    excludes=["pkg_resources"],
+    excludes=["packaging","pkg_resources","setuptools"],
     noarchive=True,
     optimize=2,
 )
