@@ -1116,13 +1116,13 @@ files = [
 
 [[package]]
 name = "shibuya"
-version = "2024.10.15"
+version = "2024.12.15"
 description = "A clean, responsive, and customizable Sphinx documentation theme with light/dark mode."
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "shibuya-2024.10.15-py3-none-any.whl", hash = "sha256:46d32c4dc7f244bfe130e710f477f4bda64706e5610916089371509992cae5e6"},
-    {file = "shibuya-2024.10.15.tar.gz", hash = "sha256:fc057a32a2dcdca9f0f85616f9fff5b3007500bf42ff4eeb1d68fae124b1a51d"},
+    {file = "shibuya-2024.12.15-py3-none-any.whl", hash = "sha256:1047f68dbf202571f13ef3a9e88327aab9655733f1e18d0a0889d5e56c517205"},
+    {file = "shibuya-2024.12.15.tar.gz", hash = "sha256:0faadf00ae5bbd3d9ea18e7acc56230b2e6652c43d5534b8875ffbbb4ccd437c"},
 ]
 
 [package.dependencies]
@@ -1472,4 +1472,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<3.14"
-content-hash = "07e63644ab048d63bed62c36ff0590660068ded432182ef0418c1427e86c51ac"
+content-hash = "b3f20971902b06396d476927fbf18e3e8fd58cbe009c7b0cb6e109993db0f8e6"
