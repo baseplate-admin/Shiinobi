@@ -37,7 +37,7 @@ pyinstaller = "^6.11.1"
 # Pillow is used for `.png` to `.ico` convertion
 pillow = "^11.0.0"
 # Types 
-mypy = "^1.13.0"
+mypy = "^1.14.0"
 types-python-dateutil = "^2.9.0.20241206"
 types-requests = "^2.32.0.20241016"
 types-pyinstaller = "^6.11.0.20241028"
