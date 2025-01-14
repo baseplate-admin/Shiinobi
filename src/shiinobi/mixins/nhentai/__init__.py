@@ -25,7 +25,7 @@ class NhentaiClientWithHelper:
         self.client = get_session(
             # https://docs.api.jikan.moe/#section/Information/Rate-Limiting
             per_minute=60,
-            per_second=3,
+            per_second=2,
             # https://requests-cache.readthedocs.io/en/stable/user_guide/expiration.html
             per_host=True,
         )
