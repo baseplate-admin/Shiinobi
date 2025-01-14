@@ -6,9 +6,6 @@ __all__ = ["AnimeDemographicsBuilder"]
 class AnimeDemographicsBuilder(MyAnimeListClientWithHelper):
     """The base class for anime demographics builder"""
 
-    def __init__(self, *args, **kwargs) -> None:
-        super().__init__(*args, **kwargs)
-
     def __build_ids(self, anchors: list[str]) -> list[int]:
         ids = [self.regex_helper.get_first_integer_from_url(item) for item in anchors]
         self.logger.debug(

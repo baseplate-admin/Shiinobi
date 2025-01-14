@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['./src/shiinobi/cli.py'],
+    ['./src/cli.py'],
     pathex=['./src/shiinobi'],
     binaries=[],
     datas=[],

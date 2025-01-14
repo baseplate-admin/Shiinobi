@@ -7,7 +7,7 @@ from typing import Literal, Optional, Any
 import logging
 import requests
 import typer
-from typing_extensions import Annotated
+from typing import Annotated
 
 from shiinobi import __version__
 from shiinobi.utilities.logger import get_logger
@@ -30,6 +30,9 @@ from shiinobi.builder.myanimelist.manga_explicit_genres import MangaExplicitGenr
 from shiinobi.builder.myanimelist.manga_genres import MangaGenreBuilder
 from shiinobi.builder.myanimelist.manga_maganize import MangaMaganizeBuilder
 from shiinobi.builder.myanimelist.manga_theme import MangaThemeBuilder
+
+# Nhentai
+from shiinobi.builder.nhentai import NHentaiNumberBuilder
 
 ## Parsers
 # Anime
@@ -309,6 +312,14 @@ def get_myanimelist_manga_themes(
 ):
     builder = MangaThemeBuilder()
     dictionary = builder.build_dictionary(sort=sort)
+    print_json(dictionary)
+
+
+# Nhentai
+@app.command()
+def get_nhentai_all_numbers():
+    builder = NHentaiNumberBuilder()
+    dictionary = builder.build_dictionary()
     print_json(dictionary)
 
 
