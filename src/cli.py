@@ -31,6 +31,9 @@ from shiinobi.builder.myanimelist.manga_genres import MangaGenreBuilder
 from shiinobi.builder.myanimelist.manga_maganize import MangaMaganizeBuilder
 from shiinobi.builder.myanimelist.manga_theme import MangaThemeBuilder
 
+# Nhentai
+from shiinobi.builder.nhentai import NHentaiNumberBuilder
+
 ## Parsers
 # Anime
 from shiinobi.parser.myanimelist.anime import AnimeParser
@@ -309,6 +312,14 @@ def get_myanimelist_manga_themes(
 ):
     builder = MangaThemeBuilder()
     dictionary = builder.build_dictionary(sort=sort)
+    print_json(dictionary)
+
+
+# Nhentai
+@app.command()
+def get_nhentai_all_numbers():
+    builder = NHentaiNumberBuilder()
+    dictionary = builder.build_dictionary()
     print_json(dictionary)
 
 

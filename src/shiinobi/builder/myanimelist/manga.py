@@ -10,9 +10,6 @@ __all__ = ["MangaBuilder"]
 class MangaBuilder(MyAnimeListClientWithHelper):
     """The base class for manga builder"""
 
-    def __init__(self, *args, **kwargs) -> None:
-        super().__init__(*args, **kwargs)
-
     def __build_urls_to_visit(self) -> Set[int]:
         url = "https://myanimelist.net/sitemap/index.xml"
         res = self.client.get(url)

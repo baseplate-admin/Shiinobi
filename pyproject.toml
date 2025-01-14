@@ -2,11 +2,15 @@
 name = "shiinobi"
 version = "0.0.1"
 description = ""
-authors = [{ name = "baseplate-admin", email = "61817579+baseplate-admin@users.noreply.github.com" }]
+authors = [
+    { name = "baseplate-admin", email = "61817579+baseplate-admin@users.noreply.github.com" },
+]
 requires-python = ">=3.9,<3.14"
 readme = "README.md"
 license = "MIT"
-maintainers = [{ name = "baseplate-admin", email = "61817579+baseplate-admin@users.noreply.github.com" }]
+maintainers = [
+    { name = "baseplate-admin", email = "61817579+baseplate-admin@users.noreply.github.com" },
+]
 dependencies = [
     "selectolax>=0.3.27,<0.4",
     "requests-cache>=1.2.1,<2",
@@ -35,19 +39,15 @@ dev = [
 ]
 
 [tool.uv]
-default-groups = [
-    "cli",
-    "docs",
-    "dev",
-]
+default-groups = ["cli", "docs", "dev"]
 
 [tool.hatch.build.targets.sdist]
 include = ["./src/shiinobi"]
-exclude = ["src/shiinobi/cli.py"]
+# exclude = ["src/shiinobi/cli.py"]
 
 [tool.hatch.build.targets.wheel]
 include = ["./src/shiinobi"]
-exclude = ["src/shiinobi/cli.py"]
+# exclude = ["src/shiinobi/cli.py"]
 
 [tool.hatch.build.targets.wheel.sources]
 "./src/shiinobi" = "shiinobi"
@@ -57,5 +57,5 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.poe.tasks]
-"dev-cli" = "python ./src/shiinobi/cli.py"
+"dev-cli" = "python ./src/cli.py"
 "build-cli" = "pyinstaller ./cli.spec --clean"

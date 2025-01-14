@@ -1,16 +1,19 @@
-import requests
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import sys
 import signal
 
+from shiinobi.mixins.nhentai import NhentaiClientWithHelper
+
 __all__ = ["NHentaiNumberBuilder"]
 
+MAX_WORKER = 2
 
-class NHentaiNumberBuilder:
+
+class NHentaiNumberBuilder(NhentaiClientWithHelper):
     """The base class for nhentai number builder"""
 
     def __init__(self) -> None:
-        self.client = requests.session()
+        super().__init__()
         self._num_pages = self.__build_page_num()
         self._interrupted = False
 
@@ -45,7 +48,7 @@ class NHentaiNumberBuilder:
         ids = []
 
         try:
-            with ThreadPoolExecutor(max_workers=10) as executor:
+            with ThreadPoolExecutor(max_workers=MAX_WORKER) as executor:
                 future_to_page = {
                     executor.submit(self.fetch_page, page): page
                     for page in range(1, self._num_pages + 1)
