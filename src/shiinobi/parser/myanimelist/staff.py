@@ -5,7 +5,7 @@ from typing import Any, TypedDict
 
 from dateutil import parser
 
-from shiinobi.decorators.return_error_decorator import return_on_error
+from shiinobi.decorators import return_on_error
 from shiinobi.mixins.myanimelist import MyAnimeListClientWithHelper
 
 __all__ = ["StaffParser"]

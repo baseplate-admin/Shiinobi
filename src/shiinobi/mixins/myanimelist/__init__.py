@@ -1,10 +1,6 @@
 from selectolax.parser import HTMLParser
 
-from shiinobi.utilities.regex import RegexHelper
-from shiinobi.utilities.session import get_session
-
-from shiinobi.utilities.logger import get_logger
-from shiinobi.utilities.string import StringHelper
+from shiinobi.utilities import get_logger, get_session, RegexHelper, StringHelper
 
 __all__ = ["MyAnimeListClientWithHelper"]
 

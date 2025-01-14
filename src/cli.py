@@ -10,44 +10,50 @@ import typer
 from typing import Annotated
 
 from shiinobi import __version__
-from shiinobi.utilities.logger import get_logger
+from shiinobi.utilities import get_logger, get_session
 
 ## Bulders
-# Anime
-from shiinobi.builder.myanimelist.anime_all_genres import AnimeAllGenreBuilder
-from shiinobi.builder.myanimelist.anime import AnimeBuilder
-from shiinobi.builder.myanimelist.anime_demographics import AnimeDemographicsBuilder
-from shiinobi.builder.myanimelist.anime_explicit_genres import AnimeExplicitGenreBuilder
-from shiinobi.builder.myanimelist.anime_genres import AnimeGenreBuilder
-from shiinobi.builder.myanimelist.anime_theme import AnimeThemeBuilder
-from shiinobi.builder.myanimelist.character import CharacterBuilder
-from shiinobi.builder.myanimelist.staff import StaffBuilder
+from shiinobi.builder.myanimelist import (
+    # Anime
+    AnimeAllGenreBuilder,
+    AnimeDemographicsBuilder,
+    AnimeExplicitGenreBuilder,
+    AnimeThemeBuilder,
+    AnimeGenreBuilder,
+    AnimeBuilder,
+    # Staff
+    StaffBuilder,
+    # Character
+    CharacterBuilder,
+    # Manga
+    MangaAllGenreBuilder,
+    MangaDemographicsBuilder,
+    MangaExplicitGenreBuilder,
+    MangaGenreBuilder,
+    MangaThemeBuilder,
+    MangaMaganizeBuilder,
+)
 
-# Manga
-from shiinobi.builder.myanimelist.manga_all_genres import MangaAllGenreBuilder
-from shiinobi.builder.myanimelist.manga_demographics import MangaDemographicsBuilder
-from shiinobi.builder.myanimelist.manga_explicit_genres import MangaExplicitGenreBuilder
-from shiinobi.builder.myanimelist.manga_genres import MangaGenreBuilder
-from shiinobi.builder.myanimelist.manga_maganize import MangaMaganizeBuilder
-from shiinobi.builder.myanimelist.manga_theme import MangaThemeBuilder
 
 # Nhentai
 from shiinobi.builder.nhentai import NHentaiNumberBuilder
 
 ## Parsers
 # Anime
-from shiinobi.parser.myanimelist.anime import AnimeParser
-from shiinobi.parser.myanimelist.anime_character_and_staff_list import (
+from shiinobi.parser.myanimelist import (
+    # Anime
+    AnimeParser,
+    AnimeGenreParser,
+    AnimeProducerParser,
     AnimeCharacterAndStaffListParser,
+    # Staffs
+    StaffParser,
+    # Characters
+    CharacterParser,
 )
-from shiinobi.parser.myanimelist.anime_genre import AnimeGenreParser
-from shiinobi.parser.myanimelist.anime_producer import AnimeProducerParser
-from shiinobi.parser.myanimelist.character import CharacterParser
-from shiinobi.parser.myanimelist.staff import StaffParser
-
 
 app = typer.Typer()
-session = requests.Session()
+session = get_session(per_minute=60, per_second=1, per_host=True)
 
 
 def custom_serializer(obj):

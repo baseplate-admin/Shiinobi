@@ -2,11 +2,10 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import sys
 import signal
 
+from shiinobi.constants.nhentai import MAX_WORKER
 from shiinobi.mixins.nhentai import NhentaiClientWithHelper
 
 __all__ = ["NHentaiNumberBuilder"]
-
-MAX_WORKER = 2
 
 
 class NHentaiNumberBuilder(NhentaiClientWithHelper):

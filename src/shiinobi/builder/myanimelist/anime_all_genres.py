@@ -1,9 +1,6 @@
 from shiinobi.mixins.myanimelist import MyAnimeListClientWithHelper
 
 
-__all__ = ["AnimeAllGenreBuilder"]
-
-
 class AnimeAllGenreBuilder(MyAnimeListClientWithHelper):
     """The base class for anime genre builder"""
 

@@ -14,11 +14,11 @@ class RegexHelper:
         if not _match:
             raise Exception("No match found")
 
-        _id_ = _match.group(1)
-        if not _id_.isdigit():
+        _id = _match.group(1)
+        if not _id.isdigit():
             raise Exception("Id is not a digit.")
 
-        return int(_id_)
+        return int(_id)
 
     @staticmethod
     def get_content_between_first_brackets(text: str) -> str:
