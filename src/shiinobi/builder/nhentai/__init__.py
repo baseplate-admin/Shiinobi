@@ -59,7 +59,8 @@ class NHentaiNumberBuilder(NhentaiClientWithHelper):
 
                     try:
                         page_ids = future.result()
-                        ids.extend(page_ids)
+                        if page_ids:
+                            ids.extend(page_ids)
                     except Exception as e:
                         print(f"Error fetching page {future_to_page[future]}: {e}")
 
