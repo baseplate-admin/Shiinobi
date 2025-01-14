@@ -6,17 +6,14 @@ from requests.utils import DEFAULT_ACCEPT_ENCODING
 from requests_cache import CacheMixin, SQLiteCache
 from requests_ratelimiter import LimiterMixin, SQLiteBucket
 from urllib3.util import Retry
+from shiinobi.constants import (
+    BACKOFF_FACTOR,
+    TOTAL_RETRIES,
+    RETRY_STATUSES,
+    EXPIRE_AFTER,
+)
 
 __all__ = ["get_session"]
-
-RETRY_STATUSES = [403, 429]
-
-retry_strategy = Retry(
-    total=15,
-    backoff_factor=2,
-    status_forcelist=RETRY_STATUSES,
-)
-adapter = HTTPAdapter(max_retries=retry_strategy)
 
 
 class CachedLimiterSession(CacheMixin, LimiterMixin, Session):
@@ -44,6 +41,13 @@ class CachedLimiterSession(CacheMixin, LimiterMixin, Session):
 
 
 def get_session(per_minute=0.0, per_second=0.0, per_host=False):
+    retry_strategy = Retry(
+        total=TOTAL_RETRIES,
+        backoff_factor=BACKOFF_FACTOR,
+        status_forcelist=RETRY_STATUSES,
+    )
+    adapter = HTTPAdapter(max_retries=retry_strategy)
+
     session = CachedLimiterSession(
         bucket_class=SQLiteBucket,
         cache_name="http_cache",
@@ -51,7 +55,7 @@ def get_session(per_minute=0.0, per_second=0.0, per_host=False):
         per_minute=per_minute,
         per_second=per_second,
         per_host=per_host,
-        expire_after=360,
+        expire_after=EXPIRE_AFTER,
     )
     session.mount("http://", adapter)
     session.mount("https://", adapter)
