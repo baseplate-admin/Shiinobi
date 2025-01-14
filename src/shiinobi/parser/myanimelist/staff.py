@@ -6,7 +6,7 @@ from typing import Any, TypedDict
 from dateutil import parser
 
 from shiinobi.decorators.return_error_decorator import return_on_error
-from shiinobi.mixins.base import BaseClientWithHelperMixin
+from shiinobi.mixins.myanimelist import MyAnimeListClientWithHelper
 
 __all__ = ["StaffParser"]
 
@@ -27,7 +27,7 @@ class StaffDictionary(TypedDict):
     about: str
 
 
-class StaffParser(BaseClientWithHelperMixin):
+class StaffParser(MyAnimeListClientWithHelper):
     def __init__(self, html: str):
         super().__init__()
         self.parser = self.get_parser(html)
@@ -35,7 +35,10 @@ class StaffParser(BaseClientWithHelperMixin):
     @property
     @return_on_error("")
     def get_staff_url(self) -> str:
-        return self.parser.css_first("meta[property='og:url']").attributes["content"]
+        url = self.parser.css_first("meta[property='og:url']").attributes["content"]
+        if not url:
+            raise ValueError("There are no urls")
+        return url
 
     @property
     @return_on_error("")
@@ -52,6 +55,7 @@ class StaffParser(BaseClientWithHelperMixin):
                 "image": BytesIO(res.content),
                 "mimetype": url.split(".")[-1],
             }
+        return {}
 
     @property
     @return_on_error("")

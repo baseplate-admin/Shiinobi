@@ -1,17 +1,18 @@
 import datetime
 from functools import lru_cache
-from typing import TypedDict
 
+from dataclasses import dataclass, asdict
 from dateutil import parser
-from selectolax.parser import Node
 
+from selectolax.parser import Node
 from shiinobi.decorators.return_error_decorator import return_on_error
-from shiinobi.mixins.base import BaseClientWithHelperMixin
+from shiinobi.mixins.myanimelist import MyAnimeListClientWithHelper
 
 __all__ = ["AnimeParser"]
 
 
-class AnimeDictionary(TypedDict):
+@dataclass(frozen=True)
+class AnimeDictionary:
     mal_id: int
     name: str
     name_japanese: str
@@ -32,27 +33,14 @@ class AnimeDictionary(TypedDict):
     endings: list[int]
 
 
-class AnimeParser(BaseClientWithHelperMixin):
+class AnimeParser(MyAnimeListClientWithHelper):
     def __init__(self, html: str) -> None:
         super().__init__()
-
         self.parser = self.get_parser(html)
 
     @property
     @return_on_error("")
-    @lru_cache(maxsize=None)
-    def __get_aired_text(self):
-        # aired text contains in this format
-        # 'aired_from to aired_to'
-        node = self.parser.select("span").text_contains("Aired:").matches
-        if len(node) > 1:
-            raise ValueError("There are multiple aired node")
-
-        return self.string_helper.cleanse(node[0].next.text())
-
-    @property
-    @return_on_error("")
-    def get_anime_url(self) -> str:
+    def get_anime_url(self):
         if anime_url := self.parser.css_first("meta[property='og:url']").attributes[
             "content"
         ]:
@@ -62,7 +50,7 @@ class AnimeParser(BaseClientWithHelperMixin):
 
     @property
     @return_on_error("")
-    def get_anime_id(self) -> str:
+    def get_anime_id(self):
         if anime_id := self.regex_helper.get_id_from_url(self.get_anime_url):
             return str(anime_id)
         else:
@@ -70,7 +58,7 @@ class AnimeParser(BaseClientWithHelperMixin):
 
     @property
     @return_on_error("")
-    def get_anime_name(self) -> str:
+    def get_anime_name(self):
         if anime_name := self.parser.css_first("meta[property='og:title']").attributes[
             "content"
         ]:
@@ -80,7 +68,7 @@ class AnimeParser(BaseClientWithHelperMixin):
 
     @property
     @return_on_error("")
-    def get_anime_name_japanese(self) -> str:
+    def get_anime_name_japanese(self):
         node = self.parser.select("span").text_contains("Japanese:").matches
         if len(node) > 1:
             raise ValueError("There are more than one node in name japanese node")
@@ -90,11 +78,11 @@ class AnimeParser(BaseClientWithHelperMixin):
 
     @property
     @return_on_error([])
-    def get_anime_name_synonyms(self) -> list[str]:
+    def get_anime_name_synonyms(self):
         node = self.parser.select("h2").text_contains("Alternative Titles").matches[0]
         alternate_names = []
 
-        next_node: Node
+        next_node: Node = None
 
         while True:
             if node.next.tag == "h2":
@@ -119,7 +107,7 @@ class AnimeParser(BaseClientWithHelperMixin):
 
     @property
     @return_on_error("")
-    def get_source(self) -> str:
+    def get_source(self):
         node = self.parser.select("span").text_contains("Source:").matches
         if len(node) > 1:
             raise ValueError("There are multiple source node")
@@ -128,22 +116,36 @@ class AnimeParser(BaseClientWithHelperMixin):
         return source
 
     @property
-    def get_aired_from(self) -> datetime.datetime:
-        aired_text = self.__get_aired_text
-        splitted_text = aired_text.split("to")
-        aired_from = parser.parse(self.string_helper.cleanse(splitted_text[0]))
-        return aired_from
+    @return_on_error("")
+    @lru_cache(maxsize=None)
+    def __get_aired_text(self):
+        # aired text contains in this format
+        # '<aired_from> to <aired_to>'
+        node = self.parser.select("span").text_contains("Aired:").matches
+        if len(node) > 1:
+            raise ValueError("There are multiple aired node")
 
-    @property
-    def get_aired_to(self) -> datetime.datetime:
-        aired_text = self.__get_aired_text
-        splitted_text = aired_text.split("to")
-        aired_to = parser.parse(self.string_helper.cleanse(splitted_text[1]))
-        return aired_to
+        return self.string_helper.cleanse(node[0].next.text())
 
     @property
     @return_on_error("")
-    def get_synopsis(self) -> str:
+    def get_aired_from(self):
+        aired_text = self.__get_aired_text
+        splitted_text = aired_text.split("to")
+        aired_from = parser.parse(self.string_helper.cleanse(splitted_text[0]))
+        return aired_from.isoformat()
+
+    @property
+    @return_on_error("")
+    def get_aired_to(self):
+        aired_text = self.__get_aired_text
+        splitted_text = aired_text.split("to")
+        aired_to = parser.parse(self.string_helper.cleanse(splitted_text[1]))
+        return aired_to.isoformat()
+
+    @property
+    @return_on_error("")
+    def get_synopsis(self):
         node = self.parser.css_first("p[itemprop='description']")
 
         synopsis = self.string_helper.cleanse(node.text())
@@ -155,7 +157,7 @@ class AnimeParser(BaseClientWithHelperMixin):
 
     @property
     @return_on_error("")
-    def get_background(self) -> str:
+    def get_background(self):
         node = self.parser.select("h2").text_contains("Background").matches
         if len(node) > 1:
             raise ValueError("There are multiple Background node")
@@ -168,7 +170,7 @@ class AnimeParser(BaseClientWithHelperMixin):
 
     @property
     @return_on_error("")
-    def get_rating(self) -> str:
+    def get_rating(self):
         node = self.parser.select("span").text_contains("Rating:").matches
         if len(node) > 1:
             raise ValueError("There are multiple Rating node")
@@ -178,7 +180,7 @@ class AnimeParser(BaseClientWithHelperMixin):
 
     @property
     @return_on_error([])
-    def get_genres(self) -> list[int]:
+    def get_genres(self):
         node = self.parser.select("span").text_contains("Genres:").matches
         if len(node) > 1:
             raise ValueError("There are multiple Genre node")
@@ -196,7 +198,7 @@ class AnimeParser(BaseClientWithHelperMixin):
 
     @property
     @return_on_error([])
-    def get_themes(self) -> list[int]:
+    def get_themes(self):
         node = self.parser.select("span").text_contains("Themes:").matches
         if len(node) > 1:
             raise ValueError("There are multiple Genre node")
@@ -213,7 +215,7 @@ class AnimeParser(BaseClientWithHelperMixin):
 
     @property
     @return_on_error([])
-    def get_studios(self) -> list[int]:
+    def get_studios(self):
         node = self.parser.select("span").text_contains("Studios:").matches
         if len(node) > 1:
             raise ValueError("There are multiple Studio node")
@@ -229,7 +231,7 @@ class AnimeParser(BaseClientWithHelperMixin):
 
     @property
     @return_on_error([])
-    def get_producers(self) -> list[int]:
+    def get_producers(self):
         node = self.parser.select("span").text_contains("Producers:").matches
         if len(node) > 1:
             raise ValueError("There are multiple Producer node")
@@ -245,7 +247,7 @@ class AnimeParser(BaseClientWithHelperMixin):
 
     @property
     @return_on_error([])
-    def get_demographics(self) -> list[int]:
+    def get_demographics(self):
         node = self.parser.select("span").text_contains("Demographic:").matches
         if len(node) > 1:
             raise ValueError("There are multiple Demographic node")
@@ -261,7 +263,7 @@ class AnimeParser(BaseClientWithHelperMixin):
 
     @property
     @return_on_error({})
-    def get_openings(self) -> dict[int, str]:
+    def get_openings(self):
         node = self.parser.select("h2").text_contains("Opening Theme").matches
 
         opening_table_tag = node[0].parent.next.next
@@ -287,7 +289,7 @@ class AnimeParser(BaseClientWithHelperMixin):
 
     @property
     @return_on_error({})
-    def get_endings(self) -> dict[int, str]:
+    def get_endings(self):
         node = self.parser.select("h2").text_contains("Ending Theme").matches
 
         endings_table_tag = node[0].parent.next.next
@@ -311,25 +313,25 @@ class AnimeParser(BaseClientWithHelperMixin):
 
         return endings
 
-    def build_dictionary(self) -> AnimeDictionary:
-        dictionary: AnimeDictionary = {
-            "mal_id": self.get_anime_id,
-            "name": self.get_anime_name,
-            "name_japanese": self.get_anime_name_japanese,
-            "name_synonyms": self.get_anime_name_synonyms,
-            "source": self.get_source,
-            "aired_from": self.get_aired_from,
-            "aired_to": self.get_aired_to,
-            "synopsis": self.get_synopsis,
-            "background": self.get_background,
-            "rating": self.get_rating,
-            "genres": self.get_genres,
-            "themes": self.get_themes,
-            "studios": self.get_studios,
-            "producers": self.get_producers,
-            "demographics": self.get_demographics,
-            "recommendations": [],  # self
-            "openings": self.get_openings,
-            "endings": self.get_endings,
-        }
-        return dictionary
+    def build_dictionary(self):
+        dictionary = AnimeDictionary(
+            self.get_anime_id,
+            self.get_anime_name,
+            self.get_anime_name_japanese,
+            self.get_anime_name_synonyms,
+            self.get_source,
+            self.get_aired_from,
+            self.get_aired_to,
+            self.get_synopsis,
+            self.get_background,
+            self.get_rating,
+            self.get_genres,
+            self.get_themes,
+            self.get_studios,
+            self.get_producers,
+            self.get_demographics,
+            [],  # self.recommendations
+            self.get_openings,
+            self.get_endings,
+        )
+        return asdict(dictionary)

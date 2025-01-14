@@ -32,6 +32,8 @@ class RegexHelper:
     def get_first_integer_from_url(text: str) -> int:
         pattern = r"\/(\d+)\/"
         _matches = re.search(pattern, text)
+        if not _matches:
+            raise Exception("There is no match")
         _id = _matches.group(1)
         if not _id.isdigit():
             raise Exception("Id is not a digit.")

@@ -2,20 +2,21 @@
 # Licensed Under : AGPL-v3
 
 from io import BytesIO
-from typing import TypedDict
-
+from dataclasses import dataclass, asdict
 from shiinobi.decorators.return_error_decorator import return_on_error
-from shiinobi.mixins.base import BaseClientWithHelperMixin
+from shiinobi.mixins.myanimelist import MyAnimeListClientWithHelper
 
 __all__ = ["CharacterParser"]
 
 
-class CharacterImageDictionary(TypedDict):
+@dataclass(frozen=True)
+class CharacterImageDictionary:
     image: BytesIO
     mimetype: str
 
 
-class CharacterDictionary(TypedDict):
+@dataclass(frozen=True)
+class CharacterDictionary:
     mal_id: str
     name: str
     name_kanji: str
@@ -23,7 +24,7 @@ class CharacterDictionary(TypedDict):
     about: str
 
 
-class CharacterParser(BaseClientWithHelperMixin):
+class CharacterParser(MyAnimeListClientWithHelper):
     def __init__(self, html: str):
         super().__init__()
 
@@ -31,7 +32,7 @@ class CharacterParser(BaseClientWithHelperMixin):
 
     @property
     @return_on_error("")
-    def get_character_url(self) -> str:
+    def get_character_url(self):
         if character_url := self.parser.css_first("meta[property='og:url']").attributes[
             "content"
         ]:
@@ -41,7 +42,7 @@ class CharacterParser(BaseClientWithHelperMixin):
 
     @property
     @return_on_error("")
-    def get_character_id(self) -> str:
+    def get_character_id(self):
         if character_id := self.regex_helper.get_id_from_url(self.get_character_url):
             return character_id
         else:
@@ -49,19 +50,19 @@ class CharacterParser(BaseClientWithHelperMixin):
 
     @property
     @return_on_error("")
-    def get_character_name(self) -> str:
+    def get_character_name(self):
         return self.parser.css_first("meta[property='og:title']").attributes["content"]
 
     @property
     @return_on_error("")
-    def get_character_name_kanji(self) -> str:
+    def get_character_name_kanji(self):
         return self.regex_helper.get_content_between_first_brackets(
             self.parser.css_first("h2.normal_header span small").text()
         )
 
     @property
     @return_on_error("")
-    def get_about(self) -> str:
+    def get_about(self):
         html = self.parser.css_first("#content table tbody tr > td:nth-of-type(2)")
         tags = ["div", "br", "table", "h2", "script"]
         html.strip_tags(tags)
@@ -73,21 +74,18 @@ class CharacterParser(BaseClientWithHelperMixin):
 
     @property
     @return_on_error("")
-    def get_character_image(self) -> str:
+    def get_character_image(self):
         url = self.parser.css_first("meta[property='og:image']").attributes["content"]
         if url:
             res = self.client.get(url)
-            return {
-                "image": BytesIO(res.content),
-                "mimetype": url.split(".")[-1],
-            }
+            return CharacterImageDictionary(BytesIO(res.content), url.split(".")[-1])
 
-    def build_dictionary(self) -> CharacterDictionary:
-        dictionary: CharacterDictionary = {
-            "mal_id": self.get_character_id,
-            "name": self.get_character_name,
-            "name_kanji": self.get_character_name_kanji,
-            "character_image": self.get_character_image,
-            "about": self.get_about,
-        }
-        return dictionary
+    def build_dictionary(self):
+        dictionary = CharacterDictionary(
+            self.get_character_id,
+            self.get_character_name,
+            self.get_character_name_kanji,
+            self.get_character_image,
+            self.get_about,
+        )
+        return asdict(dictionary)

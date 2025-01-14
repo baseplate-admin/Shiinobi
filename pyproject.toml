@@ -2,38 +2,46 @@
 name = "shiinobi"
 version = "0.0.1"
 description = ""
-authors = ["baseplate-admin <61817579+baseplate-admin@users.noreply.github.com>"]
+authors = [
+    "baseplate-admin <61817579+baseplate-admin@users.noreply.github.com>",
+]
+maintainers = [
+    "baseplate-admin <61817579+baseplate-admin@users.noreply.github.com>",
+]
 readme = "README.md"
-packages = [
-    { include = "shiinobi",from="./src" },
-]
-exclude = [
-    "src/shiinobi/cli.py"
-]
+packages = [{ include = "shiinobi", from = "./src" }]
+exclude = ["src/shiinobi/cli.py"]
 license = "MIT"
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.14"
-selectolax = "^0.3.26"
+selectolax = "^0.3.27"
 requests-cache = "^1.2.1"
 requests-ratelimiter = "^0.7.0"
-python-dateutil = "^2.9.0.post0"
+python-dateutil = ">=2.9.0.post0"
+pyinstaller-hooks-contrib = "^2024.11"
 
 
 [tool.poetry.group.cli.dependencies]
-typer = "^0.13.1"
+typer = "^0.15.1"
 
 [tool.poetry.group.docs.dependencies]
 sphinx = "^7.2.6"
 myst-parser = ">=2"
 sphinx-reload = "^0.2.0"
-shibuya = "^2024.10.15"
+shibuya = "^2024.12.21"
 
 [tool.poetry.group.dev.dependencies]
-poethepoet = "^0.31.0"
-ruff = "^0.8.0"
+poethepoet = "^0.32.1"
+ruff = "^0.9.1"
 pyinstaller = "^6.11.1"
-pillow = "^11.0.0"
+# Pillow is used for `.png` to `.ico` convertion
+pillow = "^11.1.0"
+# Types 
+mypy = "^1.14.1"
+types-python-dateutil = "^2.9.0.20241206"
+types-requests = "^2.32.0.20241016"
+types-pyinstaller = "^6.11.0.20241028"
 
 [build-system]
 requires = ["poetry-core"]
@@ -41,4 +49,4 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poe.tasks]
 "dev-cli" = "python ./src/shiinobi/cli.py"
-"build-cli" = "pyinstaller ./cli.spec"
+"build-cli" = "pyinstaller ./cli.spec --clean"

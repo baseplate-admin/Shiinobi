@@ -1,19 +1,20 @@
-from shiinobi.mixins.base import BaseClientWithHelperMixin
+from shiinobi.mixins.myanimelist import MyAnimeListClientWithHelper
 
 __all__ = ["MangaExplicitGenreBuilder"]
 
 
-class MangaExplicitGenreBuilder(BaseClientWithHelperMixin):
+class MangaExplicitGenreBuilder(MyAnimeListClientWithHelper):
     """The base class for manga explicit genre builder"""
 
-    def __init__(self) -> None:
-        super().__init__()
-        self.anchors: list[str] = []
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
 
-    def __build_ids(self) -> list[int]:
-        return [
-            self.regex_helper.get_first_integer_from_url(item) for item in self.anchors
-        ]
+    def __build_ids(self, anchors: list[str]) -> list[int]:
+        ids = [self.regex_helper.get_first_integer_from_url(item) for item in anchors]
+        self.logger.debug(
+            f"Building {len(ids)} ID information for `{self.__class__.__name__}` where anchor length is {len(anchors)}"
+        )
+        return ids
 
     def __build_urls(self, html: str) -> list[str]:
         parser = self.get_parser(html)
@@ -25,21 +26,24 @@ class MangaExplicitGenreBuilder(BaseClientWithHelperMixin):
         )
         theme_anchor_nodes = theme_parent_node.css('a[href*="genre"]')
 
-        self.anchors = [
+        anchors = [
             self.string_helper.add_myanimelist_if_not_already_there(
                 anchor.attributes["href"]
             )
             for anchor in theme_anchor_nodes
             if anchor.attributes["href"]
         ]
-        return self.anchors
+        self.logger.debug(
+            f"Building {len(anchors)} Anchor information for `{self.__class__.__name__}`"
+        )
+        return anchors
 
     def build_dictionary(self, sort=False) -> dict[int, str]:
         res = self.client.get("https://myanimelist.net/manga.php")
         html = res.text
 
         urls = self.__build_urls(html)
-        ids = self.__build_ids()
+        ids = self.__build_ids(urls)
 
         dictionary = dict(zip(ids, urls))
 

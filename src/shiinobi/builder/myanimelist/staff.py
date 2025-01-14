@@ -2,18 +2,16 @@ import re
 import xml.etree.ElementTree as ET
 from typing import Set
 
-from shiinobi.mixins.base import BaseClientWithHelperMixin
+from shiinobi.mixins.myanimelist import MyAnimeListClientWithHelper
 
 __all__ = ["StaffBuilder"]
 
 
-class StaffBuilder(BaseClientWithHelperMixin):
+class StaffBuilder(MyAnimeListClientWithHelper):
     """The base class for staff builder"""
 
-    def __init__(self) -> None:
-        super().__init__()
-        # Urls
-        self.urls_to_visit = self.__build_urls_to_visit()
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
 
     def __build_urls_to_visit(self) -> Set[int]:
         url = "https://myanimelist.net/sitemap/index.xml"
@@ -28,15 +26,18 @@ class StaffBuilder(BaseClientWithHelperMixin):
             for element in sitemap
             if "loc" in element.tag and pattern.search(element.text)
         ]
-
+        self.logger.debug(
+            f"Building {len(urls)} URL information for `{self.__class__.__name__}`"
+        )
         return set(urls)
 
     def build_dictionary(
         self, excluded_ids: list[int] | None = None, sort: bool = False
     ) -> dict[int, str]:
         dictionary = {}
+        urls_to_visit = self.__build_urls_to_visit()
 
-        for url in self.urls_to_visit:
+        for url in urls_to_visit:
             res = self.client.get(url)
             tree = ET.fromstring(res.content)
 
