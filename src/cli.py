@@ -15,28 +15,30 @@ from shiinobi.utilities import get_logger, get_session
 ## Bulders
 from shiinobi.builder.myanimelist import (
     # Anime
-    AnimeAllGenreBuilder,
-    AnimeDemographicsBuilder,
-    AnimeExplicitGenreBuilder,
-    AnimeThemeBuilder,
-    AnimeGenreBuilder,
-    AnimeBuilder,
+    MyanimelistAnimeAllGenreBuilder,
+    MyanimelistAnimeDemographicsBuilder,
+    MyanimelistAnimeExplicitGenreBuilder,
+    MyanimelistAnimeThemeBuilder,
+    MyanimelistAnimeGenreBuilder,
+    MyanimelistAnimeBuilder,
     # Staff
-    StaffBuilder,
+    MyanimelistStaffBuilder,
     # Character
-    CharacterBuilder,
+    MyanimelistCharacterBuilder,
     # Manga
-    MangaAllGenreBuilder,
-    MangaDemographicsBuilder,
-    MangaExplicitGenreBuilder,
-    MangaGenreBuilder,
-    MangaThemeBuilder,
-    MangaMaganizeBuilder,
+    MyanimelistMangaAllGenreBuilder,
+    MyanimelistMangaDemographicsBuilder,
+    MyanimelistMangaExplicitGenreBuilder,
+    MyanimelistMangaGenreBuilder,
+    MyanimelistMangaThemeBuilder,
+    MyanimelistMangaMaganizeBuilder,
 )
 
 
 # Nhentai
 from shiinobi.builder.nhentai_net import NHentaiNetNumberBuilder
+
+from shiinobi.builder.nhentai_com import NhentaiComComicBuilder
 
 ## Parsers
 # Anime
@@ -136,7 +138,7 @@ def main(
 def get_myanimelist_all_anime_genres(
     sort: Annotated[bool, typer.Option()] = False,
 ):
-    builder = AnimeAllGenreBuilder()
+    builder = MyanimelistAnimeAllGenreBuilder()
     dictionary = builder.build_dictionary()
     print_json(dictionary)
 
@@ -145,7 +147,7 @@ def get_myanimelist_all_anime_genres(
 def get_myanimelist_anime_demographics(
     sort: Annotated[bool, typer.Option()] = False,
 ):
-    builder = AnimeDemographicsBuilder()
+    builder = MyanimelistAnimeDemographicsBuilder()
     dictionary = builder.build_dictionary(sort=sort)
     print_json(dictionary)
 
@@ -154,7 +156,7 @@ def get_myanimelist_anime_demographics(
 def get_myanimelist_anime_explicit_genres(
     sort: Annotated[bool, typer.Option()] = False,
 ):
-    builder = AnimeExplicitGenreBuilder()
+    builder = MyanimelistAnimeExplicitGenreBuilder()
     dictionary = builder.build_dictionary(sort=sort)
     print_json(dictionary)
 
@@ -163,7 +165,7 @@ def get_myanimelist_anime_explicit_genres(
 def get_myanimelist_anime_genres(
     sort: Annotated[bool, typer.Option()] = False,
 ):
-    builder = AnimeGenreBuilder()
+    builder = MyanimelistAnimeGenreBuilder()
     dictionary = builder.build_dictionary(sort=sort)
     print_json(dictionary)
 
@@ -172,7 +174,7 @@ def get_myanimelist_anime_genres(
 def get_myanimelist_anime_themes(
     sort: Annotated[bool, typer.Option()] = False,
 ):
-    builder = AnimeThemeBuilder()
+    builder = MyanimelistAnimeThemeBuilder()
     dictionary = builder.build_dictionary(sort=sort)
     print_json(dictionary)
 
@@ -230,7 +232,7 @@ def get_myanimelist_staff_urls(
     excluded_ids: Annotated[Optional[list[int]], typer.Option()] = [],
     sort: Annotated[bool, typer.Option()] = False,
 ):
-    builder = StaffBuilder()
+    builder = MyanimelistStaffBuilder()
     dictionary = builder.build_dictionary(excluded_ids=excluded_ids, sort=sort)
     print_json(dictionary)
 
@@ -240,7 +242,7 @@ def get_myanimelist_anime_urls(
     excluded_ids: Annotated[Optional[list[int]], typer.Option()] = [],
     sort: Annotated[bool, typer.Option()] = False,
 ):
-    builder = AnimeBuilder()
+    builder = MyanimelistAnimeBuilder()
     dictionary = builder.build_dictionary(excluded_ids=excluded_ids, sort=sort)
     print_json(dictionary)
 
@@ -250,7 +252,7 @@ def get_myanimelist_character_urls(
     excluded_ids: Annotated[Optional[list[int]], typer.Option()] = [],
     sort: Annotated[bool, typer.Option()] = False,
 ):
-    builder = CharacterBuilder()
+    builder = MyanimelistCharacterBuilder()
     dictionary = builder.build_dictionary(excluded_ids=excluded_ids, sort=sort)
     print_json(dictionary)
 
@@ -259,7 +261,7 @@ def get_myanimelist_character_urls(
 def get_myanimelist_demographics(
     sort: Annotated[bool, typer.Option()] = False,
 ):
-    builder = AnimeDemographicsBuilder()
+    builder = MyanimelistAnimeDemographicsBuilder()
     dictionary = builder.build_dictionary(sort=sort)
     print_json(dictionary)
 
@@ -271,7 +273,7 @@ def get_myanimelist_demographics(
 def get_myanimelist_all_manga_genres(
     sort: Annotated[bool, typer.Option()] = False,
 ):
-    builder = MangaAllGenreBuilder()
+    builder = MyanimelistMangaAllGenreBuilder()
     dictionary = builder.build_dictionary(sort=sort)
     print_json(dictionary)
 
@@ -280,7 +282,7 @@ def get_myanimelist_all_manga_genres(
 def get_myanimelist_manga_demographics(
     sort: Annotated[bool, typer.Option()] = False,
 ):
-    builder = MangaDemographicsBuilder()
+    builder = MyanimelistMangaDemographicsBuilder()
     dictionary = builder.build_dictionary(sort=sort)
     print_json(dictionary)
 
@@ -289,7 +291,7 @@ def get_myanimelist_manga_demographics(
 def get_myanimelist_manga_explicit_genres(
     sort: Annotated[bool, typer.Option()] = False,
 ):
-    builder = MangaExplicitGenreBuilder()
+    builder = MyanimelistMangaExplicitGenreBuilder()
     dictionary = builder.build_dictionary(sort=sort)
     print_json(dictionary)
 
@@ -298,7 +300,7 @@ def get_myanimelist_manga_explicit_genres(
 def get_myanimelist_manga_genres(
     sort: Annotated[bool, typer.Option()] = False,
 ):
-    builder = MangaGenreBuilder()
+    builder = MyanimelistMangaGenreBuilder()
     dictionary = builder.build_dictionary(sort=sort)
     print_json(dictionary)
 
@@ -307,7 +309,7 @@ def get_myanimelist_manga_genres(
 def get_myanimelist_manga_maganizes(
     sort: Annotated[bool, typer.Option()] = False,
 ):
-    builder = MangaMaganizeBuilder()
+    builder = MyanimelistMangaMaganizeBuilder()
     dictionary = builder.build_dictionary(sort=sort)
     print_json(dictionary)
 
@@ -316,7 +318,7 @@ def get_myanimelist_manga_maganizes(
 def get_myanimelist_manga_themes(
     sort: Annotated[bool, typer.Option()] = False,
 ):
-    builder = MangaThemeBuilder()
+    builder = MyanimelistMangaThemeBuilder()
     dictionary = builder.build_dictionary(sort=sort)
     print_json(dictionary)
 
@@ -325,6 +327,13 @@ def get_myanimelist_manga_themes(
 @app.command()
 def get_nhentai_net_all_numbers():
     builder = NHentaiNetNumberBuilder()
+    dictionary = builder.build_dictionary()
+    print_json(dictionary)
+
+
+@app.command()
+def get_nhentai_com_all_comics():
+    builder = NhentaiComComicBuilder()
     dictionary = builder.build_dictionary()
     print_json(dictionary)
 

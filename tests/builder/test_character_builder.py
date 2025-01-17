@@ -1,8 +1,8 @@
-from shiinobi.builder.character import CharacterBuilder
+from shiinobi.builder.character import MyanimelistCharacterBuilder
 
 
 def test_character_dictionary_builder() -> None:
-    builder = CharacterBuilder()
+    builder = MyanimelistCharacterBuilder()
     dictionary = builder.build_dictionary(excluded_ids=[54915])
 
     dictionary_keys = list(dictionary.keys())

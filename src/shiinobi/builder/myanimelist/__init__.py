@@ -1,19 +1,29 @@
-from .anime_all_genres import AnimeAllGenreBuilder as AnimeAllGenreBuilder
-from .anime_demographics import AnimeDemographicsBuilder as AnimeDemographicsBuilder
+from .anime_all_genres import (
+    MyanimelistAnimeAllGenreBuilder as MyanimelistAnimeAllGenreBuilder,
+)
+from .anime_demographics import (
+    MyanimelistAnimeDemographicsBuilder as MyanimelistAnimeDemographicsBuilder,
+)
 from .anime_explicit_genres import (
-    AnimeExplicitGenreBuilder as AnimeExplicitGenreBuilder,
+    MyanimelistAnimeExplicitGenreBuilder as MyanimelistAnimeExplicitGenreBuilder,
 )
-from .anime_genres import AnimeGenreBuilder as AnimeGenreBuilder
-from .anime_theme import AnimeThemeBuilder as AnimeThemeBuilder
-from .anime import AnimeBuilder as AnimeBuilder
-from .character import CharacterBuilder as CharacterBuilder
-from .manga_all_genres import MangaAllGenreBuilder as MangaAllGenreBuilder
-from .manga_demographics import MangaDemographicsBuilder as MangaDemographicsBuilder
+from .anime_genres import MyanimelistAnimeGenreBuilder as MyanimelistAnimeGenreBuilder
+from .anime_theme import MyanimelistAnimeThemeBuilder as MyanimelistAnimeThemeBuilder
+from .anime import MyanimelistAnimeBuilder as MyanimelistAnimeBuilder
+from .character import MyanimelistCharacterBuilder as MyanimelistCharacterBuilder
+from .manga_all_genres import (
+    MyanimelistMangaAllGenreBuilder as MyanimelistMangaAllGenreBuilder,
+)
+from .manga_demographics import (
+    MyanimelistMangaDemographicsBuilder as MyanimelistMangaDemographicsBuilder,
+)
 from .manga_explicit_genres import (
-    MangaExplicitGenreBuilder as MangaExplicitGenreBuilder,
+    MyanimelistMangaExplicitGenreBuilder as MyanimelistMangaExplicitGenreBuilder,
 )
-from .manga_genres import MangaGenreBuilder as MangaGenreBuilder
-from .manga_maganize import MangaMaganizeBuilder as MangaMaganizeBuilder
-from .manga_theme import MangaThemeBuilder as MangaThemeBuilder
+from .manga_genres import MyanimelistMangaGenreBuilder as MyanimelistMangaGenreBuilder
+from .manga_maganize import (
+    MyanimelistMangaMaganizeBuilder as MyanimelistMangaMaganizeBuilder,
+)
+from .manga_theme import MyanimelistMangaThemeBuilder as MyanimelistMangaThemeBuilder
 from .manga import MangaBuilder as MangaBuilder
-from .staff import StaffBuilder as StaffBuilder
+from .staff import MyanimelistStaffBuilder as MyanimelistStaffBuilder

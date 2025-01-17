@@ -13,7 +13,7 @@ This type of classes returns the available entries from the website.
 .. currentmodule:: shiinobi.builder.myanimelist.anime
 
 
-.. autoclass:: AnimeBuilder
+.. autoclass:: MyanimelistAnimeBuilder
 
     .. automethod:: build_dictionary
 
@@ -26,7 +26,7 @@ This type of classes returns the available entries from the website.
 .. currentmodule:: shiinobi.builder.myanimelist.anime_demographics
 
 
-.. autoclass:: AnimeDemographicsBuilder
+.. autoclass:: MyanimelistAnimeDemographicsBuilder
 
     .. automethod:: build_dictionary
 
@@ -39,7 +39,7 @@ This type of classes returns the available entries from the website.
 .. currentmodule:: shiinobi.builder.myanimelist.anime_explicit_genres
 
 
-.. autoclass:: AnimeExplicitGenreBuilder
+.. autoclass:: MyanimelistAnimeExplicitGenreBuilder
 
 
     .. automethod:: build_dictionary
@@ -53,7 +53,7 @@ This type of classes returns the available entries from the website.
 .. currentmodule:: shiinobi.builder.myanimelist.anime_genres
 
 
-.. autoclass:: AnimeGenreBuilder
+.. autoclass:: MyanimelistAnimeGenreBuilder
 
     .. automethod:: build_dictionary
 
@@ -66,7 +66,7 @@ This type of classes returns the available entries from the website.
 .. currentmodule:: shiinobi.builder.myanimelist.anime_theme
 
 
-.. autoclass:: AnimeThemeBuilder
+.. autoclass:: MyanimelistAnimeThemeBuilder
 
 
     .. automethod:: build_dictionary
@@ -80,7 +80,7 @@ This type of classes returns the available entries from the website.
 .. currentmodule:: shiinobi.builder.myanimelist.character
 
 
-.. autoclass:: CharacterBuilder
+.. autoclass:: MyanimelistCharacterBuilder
 
     .. automethod:: build_dictionary
 

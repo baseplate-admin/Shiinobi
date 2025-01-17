@@ -4,10 +4,10 @@ from typing import Set
 
 from shiinobi.mixins.myanimelist import MyAnimeListClientWithHelper
 
-__all__ = ["AnimeBuilder"]
+__all__ = ["MyanimelistAnimeBuilder"]
 
 
-class AnimeBuilder(MyAnimeListClientWithHelper):
+class MyanimelistAnimeBuilder(MyAnimeListClientWithHelper):
     """The base class for anime builder"""
 
     def __build_urls_to_visit(self) -> Set[int]:

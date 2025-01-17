@@ -1,9 +1,9 @@
 from shiinobi.mixins.myanimelist import MyAnimeListClientWithHelper
 
-__all__ = ["MangaDemographicsBuilder"]
+__all__ = ["MyanimelistMangaDemographicsBuilder"]
 
 
-class MangaDemographicsBuilder(MyAnimeListClientWithHelper):
+class MyanimelistMangaDemographicsBuilder(MyAnimeListClientWithHelper):
     """The base class for manga demographics builder"""
 
     def __build_ids(self, anchors: list[str]) -> list[int]:

@@ -1,9 +1,9 @@
 from shiinobi.mixins.myanimelist import MyAnimeListClientWithHelper
 
-__all__ = ["AnimeThemeBuilder"]
+__all__ = ["MyanimelistAnimeThemeBuilder"]
 
 
-class AnimeThemeBuilder(MyAnimeListClientWithHelper):
+class MyanimelistAnimeThemeBuilder(MyAnimeListClientWithHelper):
     """The base class for anime theme builder"""
 
     def __build_ids(self, anchors: list[str]) -> list[int]:

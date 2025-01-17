@@ -1,9 +1,9 @@
-from shiinobi.mixins.nhentai_net import NhentaiClientWithHelper
+from shiinobi.mixins.nhentai_net import NhentaiNetClientWithHelper
 
 __all__ = ["NHentaiNetNumberBuilder"]
 
 
-class NHentaiNetNumberBuilder(NhentaiClientWithHelper):
+class NHentaiNetNumberBuilder(NhentaiNetClientWithHelper):
     """The base class for anime genre builder"""
 
     def __init__(self):
@@ -43,7 +43,7 @@ class NHentaiNetNumberBuilder(NhentaiClientWithHelper):
 
             for anchor in anchors:
                 href = anchor.attributes["href"]
-                url = self.add_nhentai_if_not_already_there(href)
+                url = self.add_nhentai_net_if_not_already_there(href)
                 urls.add(url)
 
                 self.logger.debug(

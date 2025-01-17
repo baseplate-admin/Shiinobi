@@ -1,8 +1,8 @@
-from shiinobi.builder.anime import AnimeBuilder
+from shiinobi.builder.anime import MyanimelistAnimeBuilder
 
 
 def test_anime_dictionary_builder() -> None:
-    builder = AnimeBuilder()
+    builder = MyanimelistAnimeBuilder()
     dictionary = builder.build_dictionary(excluded_ids=[54915])
 
     dictionary_keys = list(dictionary.keys())

@@ -1,10 +1,10 @@
 from typing import NoReturn
 
-from shiinobi.builder.theme import AnimeThemeBuilder
+from shiinobi.builder.theme import MyanimelistAnimeThemeBuilder
 
 
 def test_theme_builder() -> NoReturn:
-    builder = AnimeThemeBuilder()
+    builder = MyanimelistAnimeThemeBuilder()
     data_dictionary = builder.build_dictionary()
     assert list(data_dictionary.keys()) == [
         50,

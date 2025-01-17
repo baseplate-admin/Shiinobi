@@ -2,20 +2,20 @@ import re
 import xml.etree.ElementTree as ET
 from typing import Set
 
-from shiinobi.mixins.myanimelist import MyAnimeListClientWithHelper
+from shiinobi.mixins.nhentai_com import NhentaiComClientWithHelper
 
-__all__ = ["MyanimelistStaffBuilder"]
+__all__ = ["NhentaiComComicBuilder"]
 
 
-class MyanimelistStaffBuilder(MyAnimeListClientWithHelper):
-    """The base class for staff builder"""
+class NhentaiComComicBuilder(NhentaiComClientWithHelper):
+    """The base class for anime builder"""
 
     def __build_urls_to_visit(self) -> Set[int]:
-        url = "https://myanimelist.net/sitemap/index.xml"
+        url = "https://nhentai.com/en/sitemap.xml"
         res = self.client.get(url)
         tree = ET.fromstring(res.content)
 
-        pattern = re.compile(r"https://myanimelist\.net/sitemap/people-\d+\.xml")
+        pattern = re.compile(r"https://nhentai\.com/en/sitemap/comics/\d+\.xml")
 
         urls = [
             element.text
