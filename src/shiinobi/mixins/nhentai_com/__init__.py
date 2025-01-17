@@ -1,6 +1,7 @@
 from shiinobi.utilities import get_session
 from shiinobi.facades import StringFacade, RegexFacade, LogFacade
 from selectolax.parser import HTMLParser
+import cloudscraper
 
 __all__ = ["NhentaiComClientWithHelper"]
 
@@ -26,6 +27,9 @@ class NhentaiComClientWithHelper(StringFacade, RegexFacade, LogFacade):
             # https://requests-cache.readthedocs.io/en/stable/user_guide/expiration.html
             per_host=True,
         )
+
+        # Scraper for cloudflare protection
+        self.scraper = cloudscraper.create_scraper()  # returns a CloudScraper instance
 
     @staticmethod
     def get_parser(html: str) -> HTMLParser:

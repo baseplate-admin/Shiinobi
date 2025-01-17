@@ -1,4 +1,5 @@
 import re
+import requests
 import xml.etree.ElementTree as ET
 from typing import Set
 
@@ -12,10 +13,14 @@ class NhentaiComComicBuilder(NhentaiComClientWithHelper):
 
     def __build_urls_to_visit(self) -> Set[int]:
         url = "https://nhentai.com/en/sitemap.xml"
-        res = self.client.get(url)
+        res = self.scraper.get(
+            url,
+            allow_redirects=True,
+        )
         tree = ET.fromstring(res.content)
 
-        pattern = re.compile(r"https://nhentai\.com/en/sitemap/comics/\d+\.xml")
+        pattern = re.compile(r"https://nhentai\.com/en/sitemap/comics/d+\.xml")
+        urls = set()
 
         urls = [
             element.text
@@ -33,17 +38,7 @@ class NhentaiComComicBuilder(NhentaiComClientWithHelper):
     ) -> dict[int, str]:
         dictionary = {}
         urls_to_visit = self.__build_urls_to_visit()
-
-        for url in urls_to_visit:
-            res = self.client.get(url)
-            tree = ET.fromstring(res.content)
-
-            for entry in tree:
-                for element in entry:
-                    if "loc" in element.tag:
-                        content = element.text
-                        dictionary[self.regex_helper.get_id_from_url(content)] = content
-
+        print(urls_to_visit)
         if sort:
             dictionary = dict(sorted(dictionary.items()))
 
