@@ -1,5 +1,4 @@
 import re
-import requests
 import xml.etree.ElementTree as ET
 from typing import Set
 
@@ -25,7 +24,8 @@ class NhentaiComComicBuilder(NhentaiComClientWithHelper):
         for sitemap in tree:
             for element in sitemap:
                 if "loc" in element.tag and pattern.search(element.text):
-                    urls.add(element.text)
+                    url = element.text
+                    urls.add(url)
 
         self.logger.debug(
             f"Building {len(urls)} URL information for `{self.__class__.__name__}`"
@@ -45,6 +45,10 @@ class NhentaiComComicBuilder(NhentaiComClientWithHelper):
             for entry in tree:
                 for element in entry:
                     if "loc" in element.tag:
-                        dictionary.add(element.text)
+                        url = element.text
+                        dictionary.add(url)
+                        self.logger.info(
+                            f"Got url for {url} from `{self.__class__.__name__}`"
+                        )
 
         return dictionary
