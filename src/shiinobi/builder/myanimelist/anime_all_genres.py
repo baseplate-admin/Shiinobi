@@ -16,9 +16,7 @@ class AnimeAllGenreBuilder(MyAnimeListClientWithHelper):
         theme_anchor_nodes = parser.css('a[href*="genre"]')
 
         anchors = [
-            self.string_helper.add_myanimelist_if_not_already_there(
-                anchor.attributes["href"]
-            )
+            self.add_myanimelist_if_not_already_there(anchor.attributes["href"])
             for anchor in theme_anchor_nodes
             if anchor.attributes["href"]
         ]

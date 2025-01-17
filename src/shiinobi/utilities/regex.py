@@ -7,6 +7,16 @@ class RegexHelper:
     # Getters
     # -------
     @staticmethod
+    def get_the_first_integer_from_string(string: str) -> int:
+        pattern = re.compile(r"\d+")
+
+        _match = re.search(pattern, string)
+        if not _match:
+            raise Exception("No match founnd")
+
+        return int(_match.group())
+
+    @staticmethod
     def get_id_from_url(url: str) -> int:
         pattern = re.compile(r"/(\d+)/")
 

@@ -36,7 +36,7 @@ from shiinobi.builder.myanimelist import (
 
 
 # Nhentai
-from shiinobi.builder.nhentai import NHentaiNumberBuilder
+from shiinobi.builder.nhentai_net import NHentaiNumberBuilder
 
 ## Parsers
 # Anime
@@ -323,7 +323,7 @@ def get_myanimelist_manga_themes(
 
 # Nhentai
 @app.command()
-def get_nhentai_all_numbers():
+def get_nhentai_net_all_numbers():
     builder = NHentaiNumberBuilder()
     dictionary = builder.build_dictionary()
     print_json(dictionary)

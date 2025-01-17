@@ -23,10 +23,3 @@ class StringHelper:
         string = string.strip()
 
         return string
-
-    @staticmethod
-    def add_myanimelist_if_not_already_there(url: str) -> str:
-        if "myanimelist.net" not in url:
-            return "https://myanimelist.net" + url
-        else:
-            return url

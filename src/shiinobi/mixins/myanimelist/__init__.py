@@ -16,7 +16,9 @@ class MyAnimeListClientWithHelper(StringFacade, RegexFacade, LogFacade):
     """
 
     def __init__(self):
-        super().__init__()
+        StringFacade.__init__(self)
+        RegexFacade.__init__(self)
+        LogFacade.__init__(self)
 
         # Client
         self.client = get_session(
@@ -30,3 +32,10 @@ class MyAnimeListClientWithHelper(StringFacade, RegexFacade, LogFacade):
     @staticmethod
     def get_parser(html: str) -> HTMLParser:
         return HTMLParser(html)
+
+    @staticmethod
+    def add_myanimelist_if_not_already_there(url: str) -> str:
+        if "myanimelist.net" not in url:
+            return "https://myanimelist.net" + url
+        else:
+            return url
