@@ -19,19 +19,18 @@ class NhentaiComComicBuilder(NhentaiComClientWithHelper):
         )
         tree = ET.fromstring(res.content)
 
-        pattern = re.compile(r"https://nhentai\.com/en/sitemap/comics/d+\.xml")
+        pattern = re.compile(r"https?://nhentai\.com/en/sitemap/comics/\d+\.xml")
         urls = set()
 
-        urls = [
-            element.text
-            for sitemap in tree
-            for element in sitemap
-            if "loc" in element.tag and pattern.search(element.text)
-        ]
+        for sitemap in tree:
+            for element in sitemap:
+                if "loc" in element.tag and pattern.search(element.text):
+                    urls.add(element.text)
+
         self.logger.debug(
             f"Building {len(urls)} URL information for `{self.__class__.__name__}`"
         )
-        return set(urls)
+        return urls
 
     def build_dictionary(
         self, excluded_ids: list[int] | None = None, sort: bool = False
