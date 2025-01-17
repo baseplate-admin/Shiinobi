@@ -325,9 +325,11 @@ def get_myanimelist_manga_themes(
 
 # Nhentai
 @app.command()
-def get_nhentai_net_all_numbers():
+def get_nhentai_net_all_numbers(
+    sort: Annotated[bool, typer.Option()] = False,
+):
     builder = NHentaiNetNumberBuilder()
-    dictionary = builder.build_dictionary()
+    dictionary = builder.build_dictionary(sort=sort)
     print_json(dictionary)
 
 

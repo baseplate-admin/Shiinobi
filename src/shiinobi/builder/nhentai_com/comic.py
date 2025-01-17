@@ -34,11 +34,17 @@ class NhentaiComComicBuilder(NhentaiComClientWithHelper):
 
     def build_dictionary(
         self, excluded_ids: list[int] | None = None, sort: bool = False
-    ) -> dict[int, str]:
-        dictionary = {}
+    ) -> set[int]:
+        dictionary = set()
         urls_to_visit = self.__build_urls_to_visit()
-        print(urls_to_visit)
-        if sort:
-            dictionary = dict(sorted(dictionary.items()))
+
+        for url in urls_to_visit:
+            res = self.scraper.get(url)
+            tree = ET.fromstring(res.content)
+
+            for entry in tree:
+                for element in entry:
+                    if "loc" in element.tag:
+                        dictionary.add(element.text)
 
         return dictionary
