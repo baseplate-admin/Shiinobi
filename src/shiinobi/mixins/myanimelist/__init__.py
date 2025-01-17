@@ -1,11 +1,12 @@
 from selectolax.parser import HTMLParser
 
-from shiinobi.utilities import get_logger, get_session, RegexHelper, StringHelper
+from shiinobi.utilities import get_session
+from shiinobi.facades import StringFacade, RegexFacade, LogFacade
 
 __all__ = ["MyAnimeListClientWithHelper"]
 
 
-class MyAnimeListClientWithHelper:
+class MyAnimeListClientWithHelper(StringFacade, RegexFacade, LogFacade):
     """
     Base mixin that includes:
         - RegexHelper
@@ -15,9 +16,7 @@ class MyAnimeListClientWithHelper:
     """
 
     def __init__(self):
-        # Facades
-        self.regex_helper = RegexHelper()
-        self.string_helper = StringHelper()
+        super().__init__()
 
         # Client
         self.client = get_session(
@@ -27,9 +26,6 @@ class MyAnimeListClientWithHelper:
             # https://requests-cache.readthedocs.io/en/stable/user_guide/expiration.html
             per_host=True,
         )
-
-        # Logger
-        self.logger = get_logger()
 
     @staticmethod
     def get_parser(html: str) -> HTMLParser:

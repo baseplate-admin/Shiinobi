@@ -30,7 +30,7 @@ class NHentaiNumberBuilder(NhentaiClientWithHelper):
 
         url = "https://nhentai.net/api/galleries/search?query=language:english"
 
-        print(f"Fetching page {page}")
+        self.logger.info(f"Fetching page {page}")
         res = self.client.get(f"{url}&page={page}")
 
         data = res.json()
@@ -62,10 +62,13 @@ class NHentaiNumberBuilder(NhentaiClientWithHelper):
                         if page_ids:
                             ids.extend(page_ids)
                     except Exception as e:
-                        print(f"Error fetching page {future_to_page[future]}: {e}")
+                        self.logger.error(
+                            f"Error fetching page {future_to_page[future]}: {e}"
+                        )
 
         except Exception as e:
-            print(f"An error occurred: {e}")
+            self.logger.error(f"An error occurred: {e}")
+
         finally:
             # Restore the original signal handler
             signal.signal(signal.SIGINT, original_sigint)
@@ -73,10 +76,13 @@ class NHentaiNumberBuilder(NhentaiClientWithHelper):
             if self._interrupted:
                 sys.exit(0)
 
+            return ids
+
     def build_dictionary(self, sort=False) -> dict[int, str]:
         ids = self.__build_ids()
         dictionary = {}
 
         for item in ids:
-            dictionary.setdefault(item, f"https://nhentai.net/g/{id}")
+            dictionary.setdefault(item, f"https://nhentai.net/g/{item}")
+
         return dictionary
