@@ -18,10 +18,11 @@ class NhentaiClientWithHelper(StringFacade, RegexFacade, LogFacade):
         StringFacade.__init__(self)
         RegexFacade.__init__(self)
         LogFacade.__init__(self)
+
         # Client
         self.client = get_session(
             # https://github.com/KurtBestor/Hitomi-Downloader/blob/5dc3b7f464708dd56e91a00900b9ab0dbc084494/src/extractor/nhentai_downloader.py#L24
-            per_minute=60,
+            per_minute=120,
             per_second=2,
             # https://requests-cache.readthedocs.io/en/stable/user_guide/expiration.html
             per_host=True,
