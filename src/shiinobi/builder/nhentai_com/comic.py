@@ -34,7 +34,7 @@ class NhentaiComComicBuilder(NhentaiComClientWithHelper):
 
     def build_dictionary(
         self, excluded_ids: list[int] | None = None, sort: bool = False
-    ) -> set[int]:
+    ) -> set[str]:
         dictionary = set()
         urls_to_visit = self.__build_urls_to_visit()
 

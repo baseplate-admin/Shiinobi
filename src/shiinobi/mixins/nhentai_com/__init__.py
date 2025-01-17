@@ -29,7 +29,7 @@ class NhentaiComClientWithHelper(StringFacade, RegexFacade, LogFacade):
         )
 
         # Scraper for cloudflare protection
-        self.scraper = cloudscraper.create_scraper()  # returns a CloudScraper instance
+        self.scraper = cloudscraper.create_scraper()
 
     @staticmethod
     def get_parser(html: str) -> HTMLParser:
