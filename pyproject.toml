@@ -16,7 +16,7 @@ dependencies = [
     "requests-cache>=1.2.1,<2",
     "requests-ratelimiter>=0.7.0,<0.8",
     "python-dateutil>=2.9.0.post0",
-    "pyinstaller-hooks-contrib~=2024.11",
+    "pyinstaller-hooks-contrib~=2025.0",
     "cloudscraper>=1.2.71",
 ]
 
