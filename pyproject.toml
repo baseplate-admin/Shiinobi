@@ -26,7 +26,7 @@ docs = [
     "sphinx>=7.2.6,<8",
     "myst-parser>=2",
     "sphinx-reload>=0.2.0,<0.3",
-    "shibuya>=2024.12.21,<2025",
+    "shibuya>=2024.12.21,<2026",
 ]
 dev = [
     "poethepoet>=0.32.1,<0.33",
