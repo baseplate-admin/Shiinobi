@@ -29,7 +29,7 @@ docs = [
     "shibuya>=2024.12.21,<2026",
 ]
 dev = [
-    "poethepoet>=0.32.1,<0.37",
+    "poethepoet>=0.32.1,<0.38",
     "ruff>=0.9.1,<0.10",
     "pyinstaller>=6.11.1,<7",
     "pillow>=11.1.0,<12",
