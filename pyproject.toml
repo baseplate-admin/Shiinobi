@@ -34,7 +34,7 @@ dev = [
     "pyinstaller>=6.11.1,<7",
     "pillow>=11.1.0,<12",
     "mypy>=1.14.1,<2",
-    "types-python-dateutil>=2.9.0.20241206,<3",
+    "types-python-dateutil>=2.9.0.20260124,<3",
     "types-requests>=2.32.0.20241016,<3",
     "types-pyinstaller>=6.11.0.20241028,<7",
 ]
